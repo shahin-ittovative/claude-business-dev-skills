@@ -1,0 +1,69 @@
+<!--
+CHUNK: 15
+TITLE: Open Questions, Drift Index, Confidence Flags
+PROJECT: [Project Name]
+VERSION: [X.X]
+PART OF: LLD - [Project Name]
+-->
+
+# 18. Open Questions & Flag Index
+
+> **How to use this chunk:** this is the single review surface. Every `> Confirm:`, `> TODO:`, `⚠ drift`, `🆕 code-only`, and `⛔ sdd-only` marker placed anywhere in the LLD has a row here pointing to its location. Reviewers should:
+>
+> 1. Open this file first.
+> 2. Walk the tables in order — Drift first (action items), then TODO (low-confidence), then Confirm (medium-confidence).
+> 3. Edit the source chunk to resolve each row.
+> 4. Re-run `/lld-unifier` (with `--regenerate` if needed) to refresh this index.
+
+---
+
+## 18.1 Drift Markers (hybrid mode only)
+
+| Location | Marker | Summary | Severity | Resolution |
+|----------|--------|---------|----------|------------|
+| `[chunk:section]` | `⚠ drift` | [SDD says X, code does Y] | [High / Medium / Low] | [Pending / Reconciled in code / Reconciled in SDD] |
+| `[chunk:section]` | `🆕 code-only` | [Feature in code not in SDD] | [Severity] | [Backfill SDD / Remove from code] |
+| `[chunk:section]` | `⛔ sdd-only` | [In SDD, not yet built] | [Severity] | [Implement / Defer] |
+
+> **Severity guide:**
+> - **High:** affects security, data integrity, or contract surface.
+> - **Medium:** affects observability, performance, or cross-team integration.
+> - **Low:** naming, documentation, or non-load-bearing detail.
+
+## 18.2 Low-Confidence Inferences (TODO)
+
+| Location | Best-guess content | Source / Reason | Status |
+|----------|--------------------|----|--------|
+| `[chunk:section]` | [Summary of best guess] | [from-code: heuristic / from-sdd: not specified] | [Open / Verified / Replaced] |
+
+## 18.3 Medium-Confidence Inferences (Confirm)
+
+| Location | Inferred content | Source / Reason | Status |
+|----------|------------------|----|--------|
+| `[chunk:section]` | [Summary of inference] | [from-code: pattern detection / from-sdd: CLAUDE.md default applied] | [Open / Confirmed / Edited] |
+
+## 18.4 Decisions Pending
+
+| ID | Decision needed | Stakeholder | Blocking? | Target date |
+|----|-----------------|-------------|-----------|-------------|
+| OQ-01 | [Decision] | [Role / Person] | [Yes / No] | [YYYY-MM-DD] |
+
+## 18.5 Inference Confidence Summary
+
+| Section | High-confidence rows | Medium-confidence rows | Low-confidence rows |
+|---------|---------------------|------------------------|---------------------|
+| 7. Implementation (per service) | [N] | [N] | [N] |
+| 8. Data Model | [N] | [N] | [N] |
+| 9. API Contracts | [N] | [N] | [N] |
+| 10. Event Contracts | [N] | [N] | [N] |
+| 11. State & Rules | [N] | [N] | [N] |
+| 12. Cross-Cutting | [N] | [N] | [N] |
+| 13. Operations | [N] | [N] | [N] |
+| 14. Security | [N] | [N] | [N] |
+| 15. Performance | [N] | [N] | [N] |
+| 16. Testing | [N] | [N] | [N] |
+| 17. Frontend | [N] | [N] | [N] |
+
+> **Convention:** these counts are updated whenever a chunk is regenerated.
+
+<!-- MASTER: lld-master.md | PREV: 14-frontend.md (or 13-testing.md if no UI) | NEXT: 16-references.md -->
