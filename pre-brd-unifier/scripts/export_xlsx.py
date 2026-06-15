@@ -96,6 +96,20 @@ def clear_all_answers(wb, cmap: dict) -> None:
                     ws[f"{col}{r}"] = None
 
 
+def scrub_em_dashes(wb) -> None:
+    """Replace the em dash (U+2014) with a hyphen in every string cell of the
+    output workbook. The reference template's own guidance and READ-ONLY sample
+    text contains em dashes; cloning carries them into the deliverable. House
+    style forbids the em dash, so scrub the generated file (the reference
+    workbook itself is never modified).
+    """
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for c in row:
+                if isinstance(c.value, str) and "—" in c.value:
+                    c.value = c.value.replace("—", "-")
+
+
 def export(payload: dict, dst: Path, *, src: Path = REFERENCE, cell_map: dict | None = None) -> Path:
     cmap = cell_map if cell_map is not None else load_cell_map()
     wb = clone_workbook(Path(dst), src=src)
@@ -126,5 +140,6 @@ def export(payload: dict, dst: Path, *, src: Path = REFERENCE, cell_map: dict | 
     if payload.get("control_panel"):
         set_control_panel(wb, cmap.get("_control_panel"))
 
+    scrub_em_dashes(wb)
     wb.save(Path(dst))
     return Path(dst)

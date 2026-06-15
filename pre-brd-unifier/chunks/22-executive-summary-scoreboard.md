@@ -21,7 +21,7 @@ A go / no-go synthesis. It aggregates five signals (market attractiveness, probl
 
 ## Method
 
-Each score is derived from the analysis files (not entered by hand). Scale is 1 to 5: 5 = strong / favorable, 1 = weak / unfavorable. Competitive Risk is inverted (high threat maps to a low score). Composite = sum of (score x weight). Verdict thresholds: 4.0 and above = Go; 3.0 to 3.99 = Conditional Go; below 3.0 = No-Go. Weights must sum to 1.
+Each score is derived from the analysis files (not entered by hand). Scale is 1 to 5: 5 = strong / favorable, 1 = weak / unfavorable. Competitive Risk is inverted (high threat maps to a low score). Composite = sum of (score x weight). Verdict thresholds: 4.0 and above = Go; 3.0 to 3.99 = Conditional Go; below 3.0 = No-Go. Weights must sum to 1. End with a one-line **sensitivity check**: state whether a single ±1 notch on any one signal would flip the verdict band, so the recommendation's robustness (or fragility) is visible rather than implied by suspiciously tidy scores.
 
 ## Scoreboard
 

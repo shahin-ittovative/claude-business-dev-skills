@@ -1,13 +1,19 @@
-# Research Orchestration — Multi-Agent Fan-Out
+# Research Orchestration - One Agent Per Research Chunk
 
-Fill the analysis-heavy frameworks with sourced findings by fanning out independent research subagents via the **Agent tool** (parallel, in one message). Each agent returns structured, sourced data; a synthesis step writes the chunks and propagates shared values into the Tier-5 scoreboard.
+Fill the analysis-heavy frameworks with sourced findings by fanning out **one independent research subagent per research chunk** via the **Agent tool** (parallel, dispatched in a single message). Each agent owns exactly one chunk, returns structured sourced data for that chunk only, and is blind to the others. A single-threaded synthesis step then writes the consolidating chunks (12 SWOT, 22 scoreboard) and propagates shared values.
 
-## Clusters (run concurrently)
+Only chunks **06–11** do independent web research, so only they get an agent. Chunk 12 (SWOT) and chunk 22 (Tier-5 scoreboard) are **not** agents - they are derived in synthesis from upstream chunks. Tiers 1, 3, 4 (chunks 01–05, 13–21) are authored from intake, not research.
 
-1. **Market sizing agent → chunk 07.** Size TAM/SAM/SOM both ways. Top-down: global market → region share → % relevant to segment. Bottom-up: addressable customers × ARPU. Return every figure with a source and the assumption behind it.
-2. **Competitor agent → chunk 06.** Identify the top 5 competing products. For each: provider, best-for, key features, pricing model, weaknesses, positioning, tech stack. For the feature tables, mark each feature **Available / Not available** per competitor.
-3. **Macro agent → chunks 08, 09.** PESTLE factors (Political, Economic, Social, Technological, Legal, Environmental) and Porter's Five Forces, each force scored 1–3 with a one-line rationale.
-4. **Factor agent → chunks 10, 11, 12.** EFAS (opportunities + threats with weight 0–1 and rating 1–5) and IFAS (strengths + weaknesses) → consolidated SWOT.
+## Per-chunk research agents (six, run concurrently)
+
+1. **Chunk 06 - Competitor scan + feature comparison.** Identify the top 5 competing products. For each: provider, best-for, key features, pricing model, weaknesses, positioning, tech stack. Then build the **feature comparison matrix**: enumerate the relevant feature set as rows and mark each feature **Available / Not available** per competitor across the columns. The feature-by-feature comparison across competitors is required, not optional.
+2. **Chunk 07 - Market sizing.** Size TAM/SAM/SOM both ways. Top-down: global market → region share → % relevant to segment. Bottom-up: addressable customers × ARPU. Return every figure with a source and the assumption behind it.
+3. **Chunk 08 - PESTLE.** Political, Economic, Social, Technological, Legal, Environmental factors, each with a sourced rationale.
+4. **Chunk 09 - Porter's Five Forces.** Each force scored 1–3 with a one-line rationale.
+5. **Chunk 10 - EFAS.** External opportunities + threats, each with weight 0–1 and rating 1–5.
+6. **Chunk 11 - IFAS.** Internal strengths + weaknesses, each with weight 0–1 and rating 1–5.
+
+Each agent's prompt must name its single target chunk and return only that chunk's Answer slots. Do not let an agent author or speculate about another chunk's content.
 
 ## Source rules
 - Acceptable sources: industry reports (Statista, Gartner, IBISWorld), Crunchbase/PitchBook, Google Trends/Keyword Planner, government statistics portals, vendor sites for competitor facts.
@@ -17,8 +23,17 @@ Fill the analysis-heavy frameworks with sourced findings by fanning out independ
 ## Output schema per agent
 Return JSON-like structured text: the framework's Answer slots, each with `value`, `source`, `year`, and `assumption` (where relevant). The synthesis step maps these into the chunk tables and computes derived values per `frameworks.md`.
 
-## Synthesis and propagation
-After all agents return: write chunks 06–12, compute derived totals (Porter's average, EFAS/IFAS weighted sums), then carry the propagation map in `frameworks.md` into the Tier-5 Executive Summary (22). Tiers 1, 3, 4 are authored from intake + the research bundle (they are framing/prioritization, not new web research).
+**Label the scope of every magnitude.** Each agent works blind to the others, so the same pool gets sized differently unless scoped. Every market size, CAGR, region/market share, and customer/unit count must carry an explicit scope label and year - e.g. "global all-asset PM software, 2024" vs "US residential community / HOA & condo software, 2024" vs "global proptech, 2024". An unlabelled magnitude is incomplete output.
+
+## Synthesis and propagation (single-threaded, after all agents return)
+This step runs in the main context, not as an agent, so cross-chunk coherence is preserved:
+1. **Reconcile shared figures first.** Any magnitude cited by more than one chunk - market size, CAGR, region/market share, customer or unit counts - MUST resolve to a **single canonical value with one explicit scope label and year**, used identically everywhere it appears (06, 07, 09, 10, 16, 22). Different agents will return different numbers because they chose different scopes; pick the narrowest defensible scope for the product, state it once, and make every chunk agree (a "Definitions / canonical figures" note in 07 is a good home). Where a chunk legitimately needs a different scope (e.g. Porter's rivalry sized on the broad market), keep the number but label the scope so it is visibly a different pool, not a contradiction. Divergent numbers for the same pool are a defect the reviewer will flag.
+2. Write chunks 06–11 from each agent's returned bundle, applying the reconciled canonical figures.
+3. Compute derived totals: Porter's average (from 09), EFAS/IFAS weighted sums (from 10, 11).
+4. **Consolidate chunk 12 (SWOT)** from the EFAS (10) and IFAS (11) outputs - SWOT is derived here, never fetched by an agent.
+5. Carry the propagation map in `frameworks.md` into the **Tier-5 Executive Summary (22)**, keeping it consistent with the tier-2/3/4 signals.
+
+Tiers 1, 3, 4 are authored from intake + the research bundle (they are framing/prioritization, not new web research).
 
 ## Optional accelerator
 The same playbook can run under the Workflow tool for heavier deterministic pipelines, but only when the user explicitly opts into multi-agent orchestration. Default is Agent-tool fan-out.

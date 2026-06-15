@@ -6,7 +6,7 @@ Both intents end in the same output shape (CHUNKS or COMBINED). They differ in i
 Trigger: an idea/concept, a topic seed, or conversation context with no structured source document. Run the research fan-out (`research-orchestration.md`) and author the frameworks from the bundle.
 
 ## TRANSFORM
-Trigger: the user provides an existing artifact to re-shape — notes, a concept brief, a Scope of Work, or an older pre-BRD in a different layout.
+Trigger: the user provides an existing artifact to re-shape - notes, a concept brief, a Scope of Work, or an older pre-BRD in a different layout.
 Procedure:
 1. Read the source fully before writing.
 2. Map content to the 22 frameworks. Preserve verbatim numbers, dates, named commitments.

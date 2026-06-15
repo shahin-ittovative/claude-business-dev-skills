@@ -58,9 +58,10 @@ Filenames use a two-digit sequence so tier and reading order are preserved.
 | 18 | VRIO | Tests resources for competitive advantage: Valuable, Rare, Inimitable, Organized to exploit. | [18-vrio.md](18-vrio.md) |
 | 19 | Product Strategy Canvas | Captures the why, who, what, and how of the product to align stakeholders. | [19-product-strategy-canvas.md](19-product-strategy-canvas.md) |
 | 20 | Product Lifecycle | Maps the product across Development, Introduction, Growth, Maturity, Decline. | [20-product-lifecycle.md](20-product-lifecycle.md) |
-| 21 | Roadmap and Project Plan | Timeline of goals, features, dependencies, owners, and status by quarter. | [21-roadmap-project-plan.md](21-roadmap-project-plan.md) |
+| 21 | Roadmap, Project Plan and Go-To-Market | Timeline of goals, features, dependencies, owners, and status by quarter, plus the go-to-market strategy (segment, positioning, pricing, channels, launch, CAC, KPIs). | [21-roadmap-project-plan.md](21-roadmap-project-plan.md) |
 
 ### Tier 5: Synthesis
 | # | Framework | Purpose | File |
 |---|---|---|---|
-| 22 | Executive Summary Scoreboard | Go / no-go synthesis aggregating five signals into a single weighted composite and recommendation. | [22-executive-summary-scoreboard.md](22-executive-summary-scoreboard.md) |
+| 22 | Executive Summary Scoreboard | Mechanical go / no-go synthesis aggregating five signals into a single weighted composite and recommendation. | [22-executive-summary-scoreboard.md](22-executive-summary-scoreboard.md) |
+| 23 | Investor Assessment | Independent investor-lens judgment: seven aspects scored out of 10, with a Go / No-Go verdict and an evidence-backed Why. | [23-investor-assessment.md](23-investor-assessment.md) |
