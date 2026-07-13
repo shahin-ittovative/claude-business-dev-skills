@@ -1,5 +1,5 @@
 <!--
-CHUNK: 14
+CHUNK: 15
 TITLE: Appendix & Wishlist
 PROJECT: [Project Name]
 VERSION: [X.X]
@@ -7,7 +7,7 @@ DEPENDS_ON: none
 PART OF: SDD - [Project Name]
 -->
 
-# 17. Appendix
+# 20. Appendix
 
 | File / Reference | Description | Link |
 |------------------|-------------|------|
@@ -22,7 +22,7 @@ PART OF: SDD - [Project Name]
 
 ---
 
-# 18. Wishlist
+# 21. Wishlist
 
 *Future architectural enhancements (beyond per-service "Future Enhancements")*
 
@@ -30,4 +30,4 @@ PART OF: SDD - [Project Name]
 2. [Platform-level enhancement 2]
 3. [Platform-level enhancement 3]
 
-<!-- MASTER: sdd-master.md | PREV: 13-operations-runbook.md | NEXT: none -->
+<!-- MASTER: sdd-master.md | PREV: 14-operations-runbook.md | NEXT: 16-e2e-system-design.md -->

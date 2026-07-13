@@ -11,10 +11,11 @@ For deciding **whether** transformation is the right intent, see `transform-dete
 ## Overall approach
 
 1. **Read the source in full before writing anything.** The BRD sections are interdependent; you need the whole picture before you can populate Glossary, Assumptions, and Scope coherently.
-2. **Classify each source paragraph into a BRD target section.** Keep a running map: "paragraph 3 → Business Objectives; paragraph 4 → Assumptions item 2; paragraph 5 → FR-02.How".
+2. **Classify each source paragraph into a BRD target section.** Keep a running map: "paragraph 3 → Business Objectives; paragraph 4 → Assumptions item 2; paragraph 5 → UC-02 Main Flow".
 3. **Paraphrase, don't copy.** Source docs are often written for procurement, legal, or vendor audiences. The BRD is written for the delivery team. Same facts, different voice.
-4. **Flag gaps immediately.** Every gap becomes a `**[NEEDS CLARIFICATION: <specific question>]**` marker — never an invented plausible value.
-5. **Preserve commitments verbatim.** Numbers, dates, percentages, SLAs, named integration points are carried across exactly. "11 source systems currently in SIT" stays "11 source systems currently in SIT", not "approximately a dozen".
+4. **Business language only.** The BRD states the WHAT. Any technical mandate in the source (named technologies, protocols, architecture rules, concrete technical targets) is parked **verbatim** in Appendix § Technical Inputs for the SDD — never spread into the body, never dropped.
+5. **Flag gaps immediately.** Every gap becomes a `**[NEEDS CLARIFICATION: <specific question>]**` marker — never an invented plausible value.
+6. **Preserve commitments verbatim.** Numbers, dates, percentages, named integration points are carried across exactly. "11 source systems currently in SIT" stays "11 source systems currently in SIT", not "approximately a dozen".
 
 ---
 
@@ -58,64 +59,61 @@ The source's Scope section typically has three parts mapping to three BRD sectio
 |---|---|
 | "The vendor shall deliver..." list of deliverables | **Project Scope → In Scope** |
 | Exclusions ("The following are explicitly out of scope...") | **Project Scope → Out of Scope** |
-| Functional deliverables described as features/capabilities | **Functional Requirements** (tier + detailed FR blocks) |
+| Functional deliverables described as features/capabilities | **User Journeys & Use Cases** (journeys + detailed UC blocks per persona) |
 
-The third row is the substantive work — see "FR extraction" below.
+The third row is the substantive work — see "Use case extraction" below.
 
 ### "Deliverables" / "Features" / "Capabilities" / "Requirements"
 
-→ **Functional Requirements**.
+→ **User Journeys & Use Cases**.
 
 Rules:
 
-1. **One FR per distinct capability**, not one FR per paragraph. A source paragraph may contain 3 capabilities; they become 3 FRs.
-2. **If the source tiers or waves the deliverables**, carry the tiering into the BRD's tier table. If flat, thematically cluster the FRs and introduce tiers (Tier 1 = foundational, Tier 2 = extensions, Tier 3 = enhancements). Note tier introduction in the intake summary.
-3. **For each FR**, populate all blocks per the template:
-   - **What** — rewrite the source's statement of the capability as a clear, short definition.
-   - **Why** — if the source gives rationale, paraphrase it. If not, derive from Business Objectives and say so, or flag `[NEEDS CLARIFICATION: business rationale for FR-NN]`.
-   - **How** — expand the source's bullets into step-level behaviour. Where vague, either infer from domain knowledge (and mark inferred in `Constraints`) or flag gaps.
-   - **Constraints** — pre-conditions, limits, assumptions specific to this FR.
+1. **One UC per distinct user goal**, not one UC per paragraph. A source paragraph may contain 3 capabilities; they become 3 use cases. A capability with no identifiable actor is a red flag — identify who triggers it or flag `[NEEDS CLARIFICATION: which user performs this?]`.
+2. **Assign every UC to a persona.** The persona owns it in its detailed chunk (`06a`, `06b`, …) and gets a `Yes` in the Users & Use Cases Matrix. If the source doesn't say who, infer from role references and mark inferred, or flag.
+3. **For each UC**, populate all blocks per the template:
+   - **Actor & Goal** — primary/supporting actors, one-sentence goal, business trigger.
+   - **Why** — if the source gives rationale, paraphrase it. If not, derive from Business Objectives and say so, or flag `[NEEDS CLARIFICATION: business value of UC-NN]`.
+   - **Main Flow** — expand the source's bullets into detailed numbered steps alternating actor action and system response, in business terms. Where vague, either infer from domain knowledge (and mark inferred in `Business Rules & Constraints`) or flag gaps.
+   - **Alternate & Exception Flows** — branches and failures as the user experiences them. Sources rarely state these; derive the obvious ones and flag the rest.
+   - **Business Rules & Constraints** — rules, limits, eligibility conditions specific to this UC.
    - **Acceptance Criteria** — testable conditions ("Given X, when Y, then Z").
    - **Future Enhancements** — usually not in the source; write `- None identified at this time.` unless the source hints at future waves.
-   - **UI/UX** — Figma link, Miro frame link, or pending note.
-4. **Preserve FR numbering from the source** if it numbers them (`FR-ENH-01`, etc.). Otherwise number `FR-01`, `FR-02`, … in tier order.
+   - **UI/UX** — Figma link, wireframe reference, or pending note.
+4. **Preserve numbering from the source** if it numbers requirements (map the source ID in a `Source-ref` note). Otherwise number `UC-01`, `UC-02`, … sequentially across the BRD, grouped per persona.
+5. **After all UCs are written, derive the Users & Use Cases Matrix** (chunk 07) from the actor fields — see SKILL.md step 6a.
 
-See `fr-quality.md` for what a substantive FR block looks like.
+See `use-case-quality.md` for what a substantive use-case block looks like.
 
 ### "Technical requirements" / "Architecture expectations" / "Standards"
 
-→ Distributed across multiple BRD sections:
+→ **Appendix § Technical Inputs for the SDD** — verbatim, with the source location.
 
-| Source content | BRD destination |
-|---|---|
-| Architecture principles (Kafka-first, API-first, multi-tenant) | **Definitions & Important Details** OR **Technical Implementation Expectations** |
-| Integration standards (OpenAPI, Avro, mTLS, OAuth) | **Integrations** AND **Technical Implementation Expectations** |
-| Specific technology mandates (Java 21, Spring Boot, PostgreSQL, UUIDv7) | **Technical Implementation Expectations** |
-| Observability requirements | Either a dedicated FR (if substantial) or **Non-Functional Requirements** |
+These do NOT go into the BRD body. The BRD is business-language only; technical mandates (named technologies, architecture principles, integration standards, protocols) are parked verbatim in the Appendix table so `sdd-unifier` can consume them without loss. Exception: if a source "technical" statement is actually a business expectation in disguise ("the system must keep working if a partner is down" — that's an NFR; "reports must be exportable to Excel" — that's Reporting), translate it into the right business section AND keep the original in the parking table if it carried technical specifics.
 
 ### "Non-Functional Requirements" / "Performance" / "Availability" / "Security"
 
-→ **Non-Functional Requirements** table.
+→ **Non-Functional Requirements** table, in business language.
 
-Convert each NFR into a row: `NFR-NN | <category> | <name> | <target>`. Carry concrete targets verbatim. If the source names a requirement without a target ("the system shall be highly available"), flag it: `NFR-NN | Availability | Availability | [NEEDS CLARIFICATION: specific monthly availability target]`.
+Convert each NFR into a row: `NFR-NN | <quality> | <business expectation> | <business measure>`. State the WHAT ("highly available — customers are never blocked from paying"), and express the measure in terms the business can verify ("no more than X minutes of disruption per month"). Carry business-verifiable commitments verbatim. Technical targets in the source (uptime percentages, latency budgets, throughput numbers) are parked in Appendix § Technical Inputs for the SDD and referenced: the SDD owns the technical realisation. If the source names a quality without any measure ("the system shall be highly available"), flag it: `NFR-NN | Availability | Highly available | [NEEDS CLARIFICATION: how much disruption per month is tolerable to the business?]`.
 
 ### "Integrations" / "Interfaces" / "Connected systems"
 
-→ **Integrations** section.
+→ **Integrations** section, business-level.
 
-List every system the target system must interact with, the integration mechanism (Kafka topic, REST endpoint, SMPP bind, SFTP, file drop), the direction (inbound / outbound / bidirectional), data format, auth mechanism, SLA, and status (live / in progress / planned).
+List every business system or partner the product must exchange information with: business purpose, information exchanged (in business terms), direction (we send / we receive / both ways), criticality, and provider/owner. Integration mechanisms stated in the source (protocols, endpoints, file formats, auth, SLAs) are parked verbatim in Appendix § Technical Inputs for the SDD — the SDD owns them.
 
 ### "Reporting" / "Dashboards" / "Analytics"
 
 → **Reporting / Analytics** section.
 
-Convert reporting expectations into a list of named reports or dashboards with data source, audience, refresh frequency, and format. If the source only says "reporting shall be provided", flag it.
+Convert reporting expectations into a list of named reports or dashboards with what each shows (the business question it answers), audience, frequency, and format. If the source only says "reporting shall be provided", flag it.
 
 ### "Personas" / "Users" / "Actors" (often implicit)
 
 → **Personas / Actors** section.
 
-If not named explicitly, infer from role references scattered across the text ("operator", "campaign owner", "client admin", "external tenant"). Flag if no persona-level info available.
+If not named explicitly, infer from role references scattered across the text ("operator", "campaign owner", "client admin", "external tenant"). Flag if no persona-level info available. Personas are load-bearing in this template: each one owns a use-case chunk and a matrix column, so getting the persona list right comes before use-case extraction.
 
 ### "Timeline" / "Milestones" / "Phases"
 
@@ -140,7 +138,7 @@ When the source is already a BRD but in a different format (vendor template, IEE
 ### Approach
 
 1. **Build a section crosswalk first.** Before writing, map each source section to a target template section. Note any source sections with no target (often: change history in non-standard format, sign-off pages, glossary in a non-tabular format).
-2. **For sections present in both:** carry content across, restructure to match the template's expected sub-structure (e.g., FR blocks must use `What/Why/How/Constraints/Acceptance Criteria/Future Enhancements/UI/UX`).
+2. **For sections present in both:** carry content across, restructure to match the template's expected sub-structure (e.g., requirements become UC blocks using `Actor & Goal / Why / Preconditions / Main Flow / Alternate & Exception Flows / Business Rules & Constraints / Acceptance Criteria / Future Enhancements / UI/UX`, grouped per persona). Technical content in the source body moves to Appendix § Technical Inputs for the SDD.
 3. **For target sections missing from source:** flag the entire section with `[NEEDS CLARIFICATION: section X is required by the template but not present in the source]` and produce a stub with the heading.
 4. **For source sections with no target:** evaluate — is the content useful? If yes, find the closest target section. If not (vendor sign-off block, commercial appendix), drop it and note in the handoff.
 
@@ -148,8 +146,8 @@ When the source is already a BRD but in a different format (vendor template, IEE
 
 | Source format | Peculiarity | Handling |
 |---|---|---|
-| IEEE 830 / 29148 | "Specific Requirements" with deeply nested numbering | Flatten to FR-NN; preserve the numbering in a `Source-ref:` line in `Constraints` if traceability is needed. |
-| Volere | "Shells" per requirement with ratings/priorities | Map shell content to `What/Why/How`; rating becomes priority tier. |
+| IEEE 830 / 29148 | "Specific Requirements" with deeply nested numbering | Flatten to UC-NN per user goal; preserve the numbering in a `Source-ref:` line in `Business Rules & Constraints` if traceability is needed. |
+| Volere | "Shells" per requirement with ratings/priorities | Map shell content to `Actor & Goal / Why / Main Flow`; rating becomes a wishlist-vs-now decision. |
 | Vendor / RFP-derived BRD | Vendor-obligation language, sign-off blocks | Rewrite to system voice (see "Voice and audience" below). Drop sign-off. |
 | Notion / Confluence export | Mixed concerns per page, embedded design references | Re-classify each page into the target sections. Keep design-tool links. |
 | Old version of this same template | Stale section names or missing sub-sections | Migrate to current template; bump version in Changes Log with "Migrated to template version X.Y". |
@@ -160,7 +158,7 @@ When the source is already a BRD but in a different format (vendor template, IEE
 
 When the source has no clear structure (Notion brain-dump, single-page brief, scattered notes):
 
-1. **Read everything first.** Identify the dominant content types: features (→ FRs), constraints (→ Assumptions / Constraints), goals (→ Business Objectives), risks (→ Challenges).
+1. **Read everything first.** Identify the dominant content types: features (→ use cases, each assigned to a persona), constraints (→ Assumptions / Constraints), goals (→ Business Objectives), risks (→ Challenges), technical mandates (→ Appendix § Technical Inputs for the SDD).
 2. **Classify paragraph by paragraph.** Heavier classification work than SoW transformation, because the source isn't pre-sorted.
 3. **Expect more gaps.** Loose specs typically have no NFRs, no formal personas, no integration table. Each missing piece is a `[NEEDS CLARIFICATION: ...]` marker.
 4. **The Glossary will need active construction.** Loose specs use jargon without defining it; you'll need to identify terms and either define them or flag for clarification.
@@ -213,9 +211,12 @@ Only the system-behaviour scope of the RFP transfers.
 
 Before declaring the transformation done, verify:
 
-- [ ] Every FR has all required sub-sections (`What/Why/How/Constraints/Acceptance Criteria/Future Enhancements/UI/UX`).
-- [ ] The Glossary covers every acronym used in the BRD.
+- [ ] Every UC has all required sub-sections (`Actor & Goal / Why / Preconditions / Main Flow / Alternate & Exception Flows / Business Rules & Constraints / Acceptance Criteria / Future Enhancements / UI/UX`).
+- [ ] Every UC is assigned to a persona; the Users & Use Cases Matrix covers every persona × every UC and matches the UC actor fields both ways.
+- [ ] No technical language in the body — technology names, protocols, and technical targets from the source sit verbatim in Appendix § Technical Inputs for the SDD.
+- [ ] NFRs and Integrations read as business statements (the what); no mechanism or technical target rows remain.
+- [ ] The Glossary covers every acronym used in the BRD (business terms only).
 - [ ] The Changes Log has a row for this transformation (version bumped if migrating from a prior version).
-- [ ] The Figures index lists every Miro figure referenced.
+- [ ] The Figures index lists every Mermaid figure in the document (each with its prose summary).
 - [ ] No section was silently dropped — empty sections still have their heading plus an explanation.
 - [ ] No invented numbers — every quantitative claim traces to source or carries a `[NEEDS CLARIFICATION: ...]` marker.

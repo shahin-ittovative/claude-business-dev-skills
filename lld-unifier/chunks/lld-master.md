@@ -14,15 +14,15 @@ MAINTENANCE: When adding or removing services (especially 04-implementation/<ser
 
 > **Mode:** [from-code | from-sdd | hybrid | partial]
 >
-> **Project Type:** [Greenfield | Brownfield] (sourced from BRD `12-specs.md` § 4 if available)
+> **Project Type:** [Greenfield | Brownfield] (recorded in [17-specs.md](./17-specs.md) § 4; resolved from the SDD at intake)
 >
-> **Tech Stack snapshot:** [Backend / Frontend / Mobile / Data / Messaging — sourced from BRD `12-specs.md` § 2 if available; otherwise inherited from SDD `02-ecosystem-overview.md`]
+> **Tech Stack snapshot:** [Backend / Frontend / Mobile / Data / Messaging — canonical copy in [17-specs.md](./17-specs.md) § 2, consolidated from SDD `02-ecosystem-overview.md`]
 >
-> **Related SDD:** See [../sdd/sdd-master.md](../sdd/sdd-master.md) (if applicable).
+> **Related SDD:** See [../sdd-[project-slug]/sdd-master.md](../sdd-[project-slug]/sdd-master.md) (if applicable).
 >
-> **Related BRD:** See [../brd/brd-master.md](../brd/brd-master.md) (if applicable).
+> **Related BRD:** See [../brd-[project-slug]/brd-master.md](../brd-[project-slug]/brd-master.md) (if applicable).
 >
-> **BRD Specs reference:** [../brd/12-specs.md](../brd/12-specs.md) — read this first when from-sdd direction; Project Type gates the from-code vs from-sdd decision; Tech Stack steers pattern selection.
+> **Specs:** [17-specs.md](./17-specs.md) — owned by this LLD (Mission, Tech Stack, Roadmap, Project Type), synthesised from the SDD after the body; the direct input for speckit `/constitution`. (Legacy chains carried a Specs at `../sdd-[project-slug]/15-specs.md` or `../brd-[project-slug]/12-specs.md` — consumed as input if present.)
 
 ---
 
@@ -93,6 +93,8 @@ MAINTENANCE: When adding or removing services (especially 04-implementation/<ser
 |---------|-------|
 | 18. Open Questions / Drift Index / Confidence Flags | [15-open-questions.md](./15-open-questions.md) |
 | 19. References (BRD/SDD links, ADRs, runbooks) | [16-references.md](./16-references.md) |
+| 20. Specs (Mission, Tech Stack, Roadmap, Project Type — speckit `/constitution` input) | [17-specs.md](./17-specs.md) |
+| 21. Open Items & Clarifications (reviewer output) | [18-open-items-and-clarifications.md](./18-open-items-and-clarifications.md) |
 
 ---
 
@@ -136,6 +138,8 @@ lld-master.md (you are here)
 +-- 14-frontend.md ............................. (conditional) Angular module tree
 +-- 15-open-questions.md ....................... drift index, flag index
 +-- 16-references.md ........................... BRD/SDD links, ADRs, runbooks
++-- 17-specs.md ................................ constitution-grade summary (synthesised after the body)
++-- 18-open-items-and-clarifications.md ........ reviewer findings (post-generation)
 ```
 
 ### Reading Order by Task
@@ -151,6 +155,8 @@ lld-master.md (you are here)
 | Plan migration / DB change | 05 | 04-implementation/[svc].md (DB-touching service) |
 | Plan a runbook | 10 | 12, 11 |
 | Write tests | 13 | 04-implementation/[svc].md, 06, 07 |
+| Feed speckit `/constitution` | 17-specs.md | (only this) |
+| Triage reviewer findings | 18 | the chunk(s) referenced by each open item |
 
 ### Cross-Document Navigation (BRD ↔ SDD ↔ LLD)
 
@@ -159,6 +165,9 @@ lld-master.md (you are here)
 | sdd/04 - Architecture Style | lld/03 - Architecture | SDD names the style; LLD operationalises with concrete component topology |
 | sdd/05 - Workflows & Sequences | lld/04-implementation/[svc].md (workflows) | SDD describes the cross-service flow; LLD refines per service with idempotency, outbox, saga steps |
 | sdd/07 - Cross-Cutting Concerns | lld/09 - Cross-Cutting | SDD sets defaults; LLD applies them concretely with Resilience4j config, error codes |
+| sdd/10 - Centralized Event Hub | lld/07 - Event Contracts | SDD's contract registry (topics, events, payloads) carries verbatim into the LLD's event contracts |
 | sdd/10a - Service Detailed Spec | lld/04-implementation/[svc].md | SDD defines the contract; LLD defines the implementation (classes, patterns, pseudocode) |
-| sdd/11 - Performance & Capacity | lld/12 - Performance | SDD lists targets; LLD describes the caching/index strategy that meets them |
-| sdd/13 - Operations Runbook | lld/10 - Operations | SDD describes procedures; LLD links to runbook URLs and exposes the metrics/logs they reference |
+| sdd/11 - Centralized User Roles | lld/11 - Security + lld/09 - Cross-Cutting | SDD's role/permission catalogue carries verbatim into authZ decisions and checks |
+| sdd/12 - Performance & Capacity | lld/12 - Performance | SDD lists targets; LLD describes the caching/index strategy that meets them |
+| sdd/14 - Operations Runbook | lld/10 - Operations | SDD describes procedures; LLD links to runbook URLs and exposes the metrics/logs they reference |
+| sdd/16 - E2E System Design | lld/02 - Context | SDD's reconciled system map orients the LLD's cross-service dependency view |

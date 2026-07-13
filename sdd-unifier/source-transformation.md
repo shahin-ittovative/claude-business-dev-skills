@@ -42,10 +42,10 @@ This is the main TRANSFORM path. The source is already an SDD but in a different
 | Source format | Peculiarity | Handling |
 |---|---|---|
 | **IEEE 1016 SDD** | Heavy decomposition into `Identification → Function → Subordinates → Dependencies → Interface → Resources → Processing → Data` per element. | Map IEEE element decompositions to per-service blocks. IEEE's "Identification" and "Function" → `What` + `Boundaries`. IEEE's "Interface" → `Input` + `Output` + `Integrations` + `API Standards`. IEEE's "Processing" → `Business Logic`. IEEE's "Data" → `DB Modeling`. |
-| **TOGAF deliverables** | Architecture Building Block / Solution Building Block / Architecture Decisions split across multiple documents. | Consolidate ABBs into §6 Ecosystem Overview, SBBs into §13.2.X per-service, ADs into §10 Architectural Decisions. |
-| **Vendor / consultancy template** | Deck-style headings, marketing language, missing operational sections. | Strip marketing voice. Marketing-style "value propositions" → `[DROP]`. Re-structure into team-facing technical voice. Always flag missing Operations Runbook (§16). |
-| **Prior in-house "HLD"** | Often missing per-service detailed specs, ADRs, runbook, capacity plan. | Carry what exists; flag the missing sections explicitly. Common gaps: §10 ADRs, §14 Performance & Capacity, §16 Operations Runbook. |
-| **Confluence / Notion exports** | Mixed concerns per page, inline TODOs, embedded diagrams as image refs. | Re-classify each page into target sections. Image refs flagged for Miro re-authoring. Inline TODOs become `[NEEDS CLARIFICATION: ...]` if unresolved. |
+| **TOGAF deliverables** | Architecture Building Block / Solution Building Block / Architecture Decisions split across multiple documents. | Consolidate ABBs into §6 Ecosystem Overview, SBBs into §15.X per-service, ADs into §10 Architectural Decisions. |
+| **Vendor / consultancy template** | Deck-style headings, marketing language, missing operational sections. | Strip marketing voice. Marketing-style "value propositions" → `[DROP]`. Re-structure into team-facing technical voice. Always flag missing Operations Runbook (§19). |
+| **Prior in-house "HLD"** | Often missing per-service detailed specs, ADRs, runbook, capacity plan. | Carry what exists; flag the missing sections explicitly. Common gaps: §10 ADRs, §14 Centralized Event Hub, §16 Centralized User Roles, §17 Performance & Capacity, §19 Operations Runbook. |
+| **Confluence / Notion exports** | Mixed concerns per page, inline TODOs, embedded diagrams as image refs. | Re-classify each page into target sections. Image refs re-authored as inline Mermaid (flag when the source image is unreadable). Inline TODOs become `[NEEDS CLARIFICATION: ...]` if unresolved. |
 
 ---
 
@@ -91,9 +91,9 @@ Don't soften this recommendation. An SDD with 30+ open clarifications is a struc
 ## Sanity checks before completion
 
 - [ ] All 18 sections present (or §0–§14 in chunks form), no silent drops.
-- [ ] Per-service spec block (§13.2.X) uses the canonical sub-section names.
+- [ ] Per-service spec block (§15.X) uses the canonical sub-section names, and its Event Model matches chunk 10 (§14) verbatim.
 - [ ] Cross-cutting concerns (§11) defaults are filled OR per-service overrides are explicitly stated.
-- [ ] Every Miro figure referenced has a Figures-index entry in §0.
+- [ ] Every Mermaid figure has a prose Summary and a Figures-index entry in §0.
 - [ ] No invented version pins, no fabricated technology choices.
 - [ ] Operations Runbook (§16) has at minimum the standard procedure headings (Restart, Clear Cache, Replay DLQ, Rotate Secrets, DB Failover, Tenant Incident).
 - [ ] Changes Log entry written.

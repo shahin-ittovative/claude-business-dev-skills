@@ -39,9 +39,10 @@ The chunk skeletons are embedded in this skill folder under `chunks/` — they a
 | 14 | `14-frontend.md` | `chunks/14-frontend.md` | §17 Frontend (CONDITIONAL — Angular module/component tree, signals/store, PrimeNG, i18n, RTL, a11y). | Small–Medium |
 | 15 | `15-open-questions.md` | `chunks/15-open-questions.md` | §18 Open questions, drift index, confidence flag index, decisions pending. | Small (grows with iteration) |
 | 16 | `16-references.md` | `chunks/16-references.md` | §19 References — source documents, ADRs, OpenAPI, event schemas, runbooks, threat model, externals. | Small |
-| 17 | `17-open-items-and-clarifications.md` | `chunks/17-open-items-and-clarifications.md` | **Open Items & Clarifications** — output of the post-generation cleared-context reviewer pass. Implementation-level gaps, missing edge cases, pattern misapplications, error path concerns. Each item carries options. Generated *after* the body by an independent reviewer. Complements (does not replace) chunk 15, which is the author-generated index of inline `> Confirm:` / `> TODO:` flags. | Small–Medium |
+| 17 | `17-specs.md` | `chunks/17-specs.md` | **Specs** (§20) — constitution-grade summary (Mission, Tech Stack, Roadmap, Project Type), **owned by this skill**, authored AFTER the LLD body. Synthesised from the source SDD (Mission ← SDD §1, Tech Stack ← SDD §6 verbatim with version pins, Roadmap ← SDD §13 + BRD UC ownership) plus the Project Type from intake. Direct input for speckit `/constitution`. Legacy chains carried it at the SDD (`15-specs.md`) or BRD (`12-specs.md`) — consume those as input, author this as canonical. | Small |
+| 18 | `18-open-items-and-clarifications.md` | `chunks/18-open-items-and-clarifications.md` | **Open Items & Clarifications** — output of the post-generation cleared-context reviewer pass. Implementation-level gaps, missing edge cases, pattern misapplications, error path concerns. Each item carries options. Generated *after* the body by an independent reviewer. Complements (does not replace) chunk 15, which is the author-generated index of inline `> Confirm:` / `> TODO:` flags. | Small–Medium |
 
-Total typical chunk count: **18 + N services - 1 (if no UI)** ≈ **19–23 for a typical 3-service system with UI**.
+Total typical chunk count: **19 + N services - 1 (if no UI)** ≈ **20–24 for a typical 3-service system with UI**.
 
 `lld-master.md` is the master index pointing at the chunks. Regenerate it per project.
 
@@ -119,7 +120,7 @@ Do NOT deviate to merge per-service chunks. Per-service chunks are the most-edit
 
 ## Merge handling (chunks → combined)
 
-On merge, chunks are concatenated in numeric order: 00, 01, 02, 03, 04 (per-service: alphabetical), 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16.
+On merge, chunks are concatenated in numeric order: 00, 01, 02, 03, 04 (per-service: alphabetical), 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18.
 
 Steps:
 

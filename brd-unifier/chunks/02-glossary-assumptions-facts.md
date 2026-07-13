@@ -9,6 +9,8 @@ PART OF: BRD - [Project Name]
 
 # Glossary
 
+<!-- Business and domain terms only, defined in plain language. No technical terminology (protocols, frameworks, infrastructure terms) - technical vocabulary belongs in the SDD glossary. -->
+
 | Term | Definition |
 |------|-----------|
 | [Term 1] | [Definition] |

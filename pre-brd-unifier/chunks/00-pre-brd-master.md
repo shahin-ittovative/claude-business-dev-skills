@@ -65,3 +65,4 @@ Filenames use a two-digit sequence so tier and reading order are preserved.
 |---|---|---|---|
 | 22 | Executive Summary Scoreboard | Mechanical go / no-go synthesis aggregating five signals into a single weighted composite and recommendation. | [22-executive-summary-scoreboard.md](22-executive-summary-scoreboard.md) |
 | 23 | Investor Assessment | Independent investor-lens judgment: seven aspects scored out of 10, with a Go / No-Go verdict and an evidence-backed Why. | [23-investor-assessment.md](23-investor-assessment.md) |
+| 24 | Open Items & Assumptions Log | Cleared-context reviewer output: every finding with Options, a Recommended Answer, and the Why behind it, plus the assumptions log (basis + risk if wrong). | [24-open-items-and-assumptions-log.md](24-open-items-and-assumptions-log.md) |

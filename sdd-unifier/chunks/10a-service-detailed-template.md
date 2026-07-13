@@ -3,20 +3,20 @@ CHUNK: 10a
 TITLE: Detailed Service Spec - [Service Name]
 PROJECT: [Project Name]
 VERSION: [X.X]
-DEPENDS_ON: 09, 07
+DEPENDS_ON: 09, 07, 10 (event hub - topic names, event names, and payload contracts must match chunk 10 verbatim)
 PART OF: SDD - [Project Name]
 -->
 
-# 13.2 Detailed Service Specs
+# 15. Detailed Service Specs
 
 <!--
-Repeat this chunk (10a, 10b, 10c, ...) for each service.
+Repeat this chunk (10a, 10b, 10c, ...) for each service; the service number follows the chunk letter (10a -> 15.1, 10b -> 15.2, ...).
 Each service follows the exact same structure for predictability and grep-ability.
 -->
 
 ---
 
-## 13.2.1 [Service Name]
+## 15.1 [Service Name]
 
 ### What
 
@@ -69,20 +69,7 @@ Transitions and triggers:
 
 #### Entity Relationship
 
-> ERD description (tool-agnostic).
-
-```text
-Entities (with PKs in []):
-  - [entity_a] [pk]
-  - [entity_b] [pk]
-  - [entity_c] [pk]
-
-Relationships:
-  [entity_a] [cardinality] [entity_b]   (FK: [entity_b].[fk_column])
-  [entity_b] [cardinality] [entity_c]   (FK: [entity_c].[fk_column])
-```
-
-**Mermaid alternative:**
+<!-- Inline Mermaid is the default diagram medium. Append an optional `> Miro: <url>` line below the block only if a richer whiteboard version exists on a real board. -->
 
 ```mermaid
 erDiagram
@@ -159,11 +146,23 @@ erDiagram
 
 ### Event-Driven Architecture (If Applicable)
 
+<!--
+CONSISTENCY RULE (chunk 10 is the contract registry): every topic name, event name, and payload field in this sub-section MUST match §14 (chunk 10, Centralized Event Hub) character-for-character. List BOTH published AND consumed events - consumer lists in chunk 10 are reconciled from both sides. A divergence is flagged in chunk 10 §14.8, never silently reconciled.
+-->
+
 #### Event Model
+
+**Published events:**
 
 | Event Name | Producer | Producer Specs | Consumers | Consumer Specs | Schema (Summary) | Delivery Guarantee |
 |------------|----------|----------------|-----------|----------------|------------------|---------------------|
-| `[EventName]` | [Service] | [Topic, partitions, retention, key] | [Consumer services] | [Consumer group, idempotency] | `[Payload summary]` | [At-least-once / Exactly-once] |
+| `[EVENT_NAME]` | [This service] | [Topic (verbatim from §14.4), partitions, retention, key] | [Consumer services] | [Consumer group, idempotency] | `[Payload summary - fields per §14.9]` | [At-least-once / Exactly-once effect] |
+
+**Consumed events:**
+
+| Event Name | Producer (owning service) | Topic | Effect in this service | Idempotency / ordering |
+|------------|---------------------------|-------|------------------------|------------------------|
+| `[EVENT_NAME]` | [Producer service] | `[topic - verbatim from §14.4]` | [Projection update / state transition / trigger] | [Inbox dedup key, aggregate_version handling] |
 
 #### Messaging Infra
 
@@ -220,42 +219,15 @@ erDiagram
 
 #### Implementation Flow Chart
 
-> Description (tool-agnostic).
-
-```text
-Inputs:
-  - [Input 1]
-  - [Input 2]
-
-Flow:
-  1. [Step]
-  2. [Step]
-  3. [Step]
-  4. [Step]
-```
-
-**Mermaid alternative:**
-
 ```mermaid
 flowchart TD
   A[Step 1] --> B[Step 2]
   B --> C[Step 3]
 ```
 
+**Summary:** [1-2 sentence prose fallback so the flow is understandable without rendering the diagram.]
+
 #### Sequence Diagram (Service-Internal)
-
-> Description (tool-agnostic).
-
-```text
-Participants: [P1], [P2], [P3]
-
-  1. [P1] -> [P2]: [message]
-  2. [P2] -> [P3]: [message]
-  3. [P3] -> [P2]: [response]
-  4. [P2] -> [P1]: [response]
-```
-
-**Mermaid alternative:**
 
 ```mermaid
 sequenceDiagram
@@ -264,6 +236,8 @@ sequenceDiagram
   P1->>P2: [message]
   P2-->>P1: [response]
 ```
+
+**Summary:** [1-2 sentence prose fallback describing the interaction.]
 
 ### Compliance
 
@@ -285,4 +259,4 @@ sequenceDiagram
 - [Known gap or planned improvement 1]
 - [Known gap or planned improvement 2]
 
-<!-- MASTER: sdd-master.md | PREV: 09-services-summary.md | NEXT: 11-performance-and-capacity.md -->
+<!-- MASTER: sdd-master.md | PREV: 10-events-hub.md | NEXT: 11-centralized-user-roles.md -->

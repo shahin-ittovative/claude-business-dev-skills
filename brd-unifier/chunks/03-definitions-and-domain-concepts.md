@@ -5,36 +5,31 @@ PROJECT: [Project Name]
 VERSION: [X.X]
 DEPENDS_ON: 02
 PART OF: BRD - [Project Name]
+LANGUAGE: Business language only. Explain domain concepts as the business understands them - lifecycles, rules, relationships. No data-schema, protocol, or implementation detail; that is owned by the SDD.
 -->
 
 # Definitions & Important Details
 
-<!-- Deep-dive into domain concepts critical for the team to understand before reading the FRs. -->
+<!-- Deep-dive into domain concepts critical for the team to understand before reading the use cases. -->
 
 ## [Domain Concept 1]
 
 ### Overview
 
-[Explain the concept, its role in the system, and how it flows through the platform.]
+[Explain the concept, its role in the business, and how it flows through the product.]
 
-### [Sub-concept / Data Lifecycle]
+### [Sub-concept / Lifecycle]
 
-[Detailed explanation with states, transitions, examples.]
+[Detailed explanation with states, transitions, examples - in business terms (e.g., "an order moves from placed to confirmed to delivered").]
 
-<!-- Include diagrams/figures where applicable -->
+<!-- Include inline Mermaid figures where applicable (business-language labels only) -->
 
-### [Sub-concept / Anatomy / Structure]
+### [Sub-concept / Structure]
 
-[Break down the internal structure - e.g., how a record is composed, what entities it maps to.]
+[Break down how the concept is composed from the business point of view - what it contains, what it relates to, who owns it.]
 
-## [Domain Concept 2 - e.g., Suppliers, Integrations]
+## [Domain Concept 2]
 
-### [Mapping / Configuration Details]
-
-<!-- Optional: Per-variant mapping tables for integration-heavy projects. For integration-specific mappings, consider using chunk 07 instead. -->
-
-| Source Field | Internal Field | Notes |
-|-------------|---------------|-------|
-| [External] | [Internal] | [Transform logic] |
+[Repeat the pattern per concept.]
 
 <!-- MASTER: brd-master.md | PREV: 02-glossary-assumptions-facts.md | NEXT: 04-scope-and-personas.md -->

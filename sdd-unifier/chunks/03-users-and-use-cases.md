@@ -22,34 +22,7 @@ PART OF: SDD - [Project Name]
 
 **Figure 1: Use Case Diagram**
 
-> Description (tool-agnostic; copy and paste into Miro, Lucidchart, draw.io, or any AI visualizer).
-
-```text
-Actors (left side):
-  - [Actor 1]
-  - [Actor 2]
-
-Actors (right side):
-  - [External System 1]
-  - [External System 2]
-
-System boundary box: "[System Name]"
-
-Use cases inside the boundary:
-  UC-01: [Use Case Name]
-  UC-02: [Use Case Name]
-  UC-03: [Use Case Name]
-
-Associations:
-  [Actor 1] -> [Use Case IDs]
-  [Actor 2] -> [Use Case IDs]
-
-Relationships:
-  [UC-XX] <<include>> [UC-YY]
-  [UC-XX] <<extend>>  [UC-YY]
-```
-
-**Mermaid alternative:**
+<!-- Inline Mermaid is the default diagram medium. Carry the UC IDs verbatim from the BRD. Append `> Miro: <url>` only if a richer whiteboard version exists on a real board. -->
 
 ```mermaid
 flowchart LR
@@ -67,5 +40,7 @@ flowchart LR
   A2 --> UC02
   EXT --> UC02
 ```
+
+**Summary:** [1-2 sentences: which actors drive which use-case clusters.]
 
 <!-- MASTER: sdd-master.md | PREV: 02-ecosystem-overview.md | NEXT: 04-architecture-style-and-diagrams.md -->

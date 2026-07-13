@@ -36,7 +36,7 @@ The most-skimmed section in any SDD, and the one most often filled with platitud
 **Good:** Concrete bullets describing the style's manifestation.
 
 > Example bullets:
-> - **Bounded contexts:** wallet-core, reseller-management, reporting-aggregator (one per BRD FR tier).
+> - **Bounded contexts:** wallet-core, reseller-management, reporting-aggregator (one per BRD use-case cluster / domain concept).
 > - **Inter-service sync:** none. All cross-service reads are via subscribed event projections held locally.
 > - **Inter-service async:** Kafka topics, named `<context>.<entity>.<event>` (e.g., `wallet.ledger.entry-recorded`).
 > - **Data ownership:** each service has a private `app_<service>` PostgreSQL schema; no cross-schema reads.
@@ -78,7 +78,7 @@ If any of these are unstated, that's a gap, not a non-decision.
 
 ---
 
-## §13.2.X per-service Business Logic
+## §15.X per-service Business Logic
 
 Each service spec's Business Logic is where the SDD earns its keep.
 
@@ -116,7 +116,7 @@ Every row should have a concrete value, not a wave-of-the-hand.
 
 ---
 
-## §14 Performance & Capacity
+## §17 Performance & Capacity
 
 The most-often-empty section, and the one most likely to bite an SRE later.
 
@@ -145,7 +145,7 @@ For each peak scenario:
 
 ---
 
-## §16 Operations Runbook
+## §19 Operations Runbook
 
 The runbook is the single most-tested artefact during incidents. Empty runbook procedures cost time when an engineer is paged at 03:00.
 
@@ -171,6 +171,20 @@ Restart wallet-core service (single replica)
 ```
 
 **Test:** Could an on-call engineer who has never worked on this service successfully execute the procedure at 03:00 with no help, given only this runbook? If not, rewrite.
+
+---
+
+## §14 Centralized Event Hub (and §16 Roles, §22 E2E)
+
+The platform catalogues are only useful if they are **reconciled** — a catalogue that drifts from the per-service chunks is worse than none, because implementers will trust it.
+
+**Test (event hub):** pick any event in a §15.X consumed table. Is it in the §14.5 catalog with the same name, on the same topic, published by exactly one service, with every payload field the consumer relies on present in §14.9? Pick any producer's published table — does its consumer list equal the union of the consumers' consumed tables? If either check fails and the divergence is not flagged in §14.8, the chunk is below the bar.
+
+**Test (roles):** pick any permission token in a §15.X authorization note — is it in the §16.11 grid with the same spelling and the same role set? Does every capability row trace to a BRD UC or an ADR (§16.10)?
+
+**Test (e2e):** do the counts in §22 "Counts at a glance" match §13 (services), §14.4 (topics), and §14.9 coverage (events) exactly? Is every deliberate simplification listed under "no silent caps"?
+
+**Bad:** a §14.5 catalog that lists only the events the author remembered, with consumer columns copied from producer chunks without checking the consumers' own tables.
 
 ---
 

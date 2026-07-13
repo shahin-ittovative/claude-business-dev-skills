@@ -1,5 +1,5 @@
 <!--
-CHUNK: 17
+CHUNK: 18
 TITLE: Open Items & Clarifications
 PROJECT: [Project Name]
 VERSION: [X.X]
@@ -7,7 +7,7 @@ DEPENDS_ON: all preceding LLD chunks
 PART OF: LLD - [Project Name]
 PURPOSE: Output of the post-generation cleared-context reviewer pass. Captures implementation-level gaps, missing edge cases, untested error paths, and pattern application questions flagged by an independent reviewer. Complements (does not replace) chunk 15 (Open Questions / confidence-flag index), which is author-generated.
 GENERATED_BY: lld-unifier post-generation reviewer (cleared-context subagent run after the main LLD generation completes).
-RELATIONSHIP_TO_15: chunk 15 indexes the author's own `> Confirm:` and `> TODO:` flags emitted during generation. Chunk 17 captures the *external* reviewer's adversarial findings — gaps the author did not flag inline.
+RELATIONSHIP_TO_15: chunk 15 indexes the author's own `> Confirm:` and `> TODO:` flags emitted during generation. Chunk 18 captures the *external* reviewer's adversarial findings — gaps the author did not flag inline.
 -->
 
 # Open Items & Clarifications
@@ -24,10 +24,11 @@ RELATIONSHIP_TO_15: chunk 15 indexes the author's own `> Confirm:` and `> TODO:`
 |-------|---------|
 | **ID** | OI-NN. Stable across revisions. |
 | **Where** | Service name + sub-section (e.g., `wallet-core / Method Pseudocode`), or "global" if cross-cutting. |
-| **Type** | Implementation gap / Missing edge case / Pattern misapplication / Error path / Concurrency hazard / Transaction boundary / Idempotency gap / Multi-tenancy leak / Test gap / Drift (hybrid-mode only). |
+| **Type** | Implementation gap / Missing edge case / Pattern misapplication / Error path / Concurrency hazard / Transaction boundary / Idempotency gap / Multi-tenancy leak / Test gap / Drift (hybrid-mode only) / Duplication (SDD content restated instead of referenced). |
 | **Concern** | One paragraph. What was missed and why it matters for code correctness or production reliability. |
 | **Options** | At least 2 concrete choices, each with a one-line tradeoff. |
-| **Recommendation** | Reviewer's suggested option with brief rationale, or "no recommendation - implementer call." |
+| **Recommendation** | REQUIRED. The reviewer's suggested option — always pick one, even for close calls (state that it is a close call in the Why). |
+| **Why** | REQUIRED. One or two lines: the reason the recommended option wins — the evidence behind it (CLAUDE.md rule, SDD contract, code fact, correctness/production risk avoided) and the tradeoff being accepted. Never empty, never "best option". |
 | **Status** | Open / Resolved (link to LLD update) / Deferred (with rationale). |
 
 ---
@@ -37,13 +38,14 @@ RELATIONSHIP_TO_15: chunk 15 indexes the author's own `> Confirm:` and `> TODO:`
 ### OI-01: [Short title]
 
 - **Where:** [Service / sub-section, or "global"]
-- **Type:** [Implementation gap | Missing edge case | Pattern misapplication | Error path | Concurrency hazard | Transaction boundary | Idempotency gap | Multi-tenancy leak | Test gap | Drift]
+- **Type:** [Implementation gap | Missing edge case | Pattern misapplication | Error path | Concurrency hazard | Transaction boundary | Idempotency gap | Multi-tenancy leak | Test gap | Drift | Duplication]
 - **Concern:** [One paragraph.]
 - **Options:**
   - **A.** [Option A] — [one-line tradeoff].
   - **B.** [Option B] — [one-line tradeoff].
   - **C.** [Option C] — [one-line tradeoff]. *(Optional.)*
-- **Recommendation:** [Reviewer's suggested option with rationale.]
+- **Recommendation:** [Suggested option letter + the concrete change.]
+- **Why:** [The reason this option wins, e.g., "Option A matches the CLAUDE.md idempotency rule for money writes and survives consumer redelivery; B is simpler but silently double-credits on retry."]
 - **Status:** Open
 
 ---
@@ -57,6 +59,7 @@ RELATIONSHIP_TO_15: chunk 15 indexes the author's own `> Confirm:` and `> TODO:`
   - **A.** [...] — [...].
   - **B.** [...] — [...].
 - **Recommendation:** [...]
+- **Why:** [...]
 - **Status:** Open
 
 ---
@@ -82,4 +85,4 @@ RELATIONSHIP_TO_15: chunk 15 indexes the author's own `> Confirm:` and `> TODO:`
 - [Note 1]
 - [Note 2]
 
-<!-- MASTER: lld-master.md | PREV: 16-references.md | NEXT: none -->
+<!-- MASTER: lld-master.md | PREV: 17-specs.md | NEXT: none -->

@@ -39,7 +39,7 @@ This is the high-value path. Recognise it by:
 **Chunked folder signs:**
 
 - Path is a folder ending in `brd-*` (the brd-unifier output convention).
-- Contains files with names like `00-cover-and-changelog.md`, `01-executive-summary-and-context.md`, `02-glossary-assumptions-facts.md`, `03-definitions-and-domain-concepts.md`, `04-scope-and-personas.md`, `05-fr-overview.md`, `06a-fr-*.md`, `07-integrations.md`, etc.
+- Contains files with names like `00-cover-and-changelog.md`, `01-executive-summary-and-context.md`, `02-glossary-assumptions-facts.md`, `03-definitions-and-domain-concepts.md`, `04-scope-and-personas.md`, `05-user-journeys-overview.md`, `06a-use-cases-*.md`, `07-users-use-cases-matrix.md`, `08-integrations.md`, etc. (Legacy BRDs: `05-fr-overview.md`, `06a-fr-*.md`, `07-integrations.md`.)
 - Each file starts with `<!-- CHUNK: NN ... PART OF: BRD — ... -->`.
 
 If 4+ of these match, it's a brd-unifier chunked output.
@@ -47,7 +47,7 @@ If 4+ of these match, it's a brd-unifier chunked output.
 **Combined file signs:**
 
 - Filename starts with `BRD-` (e.g., `BRD-WalletManagement-v1.0.md`).
-- Has the BRD section structure: Executive Summary, Background, Business Objectives, Glossary, Assumptions / Constraints, Facts, Challenges, Dependencies, Definitions & Important Details, Project Scope, Personas, Functional Requirements (with `What/Why/How/Constraints/Acceptance Criteria/Future Enhancements/UI/UX` blocks), Integrations, Reporting, NFRs, Summary, UI/UX Expectations, Technical Implementation Expectations, Appendix, Wishlist.
+- Has the BRD section structure: Executive Summary, Background, Business Objectives, Glossary, Assumptions / Constraints, Facts, Challenges, Dependencies, Definitions & Important Details, Project Scope, Personas, User Journeys & Use Cases (UC blocks with `Actor & Goal / Why / Preconditions / Main Flow / Alternate & Exception Flows / Business Rules / Acceptance Criteria / Future Enhancements / UI/UX`), Users & Use Cases Matrix, Integrations, Reporting, NFRs, Summary, UI/UX Expectations, Appendix, Wishlist. (Legacy BRDs: Functional Requirements with `What/Why/How` blocks and a Technical Implementation Expectations section.)
 
 If 5+ of these section names are present in template order, it's a BRD. (Multiple of these match the section names regardless of authoring tool — the structure is what matters, not the filename.)
 
@@ -57,7 +57,7 @@ In either case → **DERIVE-FROM-BRD**. Read the BRD per `brd-to-sdd.md` § Dete
 
 Signs:
 
-- Section headings include §1 Executive Summary, §6 Ecosystem Overview, §7 System Users & Use Cases, §8 System Design / High-Level Architecture, §11 Cross-Cutting Concerns, §13 Services with §13.1 Decomposition table and §13.2.X per-service blocks, §14 Performance & Capacity, §16 Operations Runbook.
+- Section headings include §1 Executive Summary, §6 Ecosystem Overview, §7 System Users & Use Cases, §8 System Design / High-Level Architecture, §11 Cross-Cutting Concerns, §13 Services Decomposition, §14 Centralized Event Hub, §15.X per-service blocks, §16 Centralized User Roles, §17 Performance & Capacity, §19 Operations Runbook (legacy SDDs use §13.1/§13.2.X services, §14 performance — recognise both).
 - Per-service blocks use `Boundaries / Input / Business Logic / Output / Integrations / DB Modeling / API Standards / Event Model / Constraints / Error Handling / Observability / Compliance / Deployment Strategy`.
 - Has a Changes Log with Reviewer + Approver columns.
 
@@ -146,8 +146,8 @@ Treat as TRANSFORM with targeted regeneration:
 
 Treat as TARGETED ADD:
 
-- In CHUNKS mode: add a new `10X-service-[slug].md` chunk and update §13.1 Services Decomposition in chunk 09.
-- In COMBINED mode: insert a new `### 13.2.X` block in section 13 and update the §13.1 table.
+- In CHUNKS mode: add a new `10X-service-[slug].md` chunk and update the §13 Services Decomposition table in chunk 09, and wire the service into the §14 event catalog (chunk 10) if it publishes or consumes events.
+- In COMBINED mode: insert a new `## 15.X` block in section 15 and update the §13 table (and the §14 event catalog if the service publishes or consumes events).
 - Bump the version in the Changes Log.
 
 ### Source is in a non-English language

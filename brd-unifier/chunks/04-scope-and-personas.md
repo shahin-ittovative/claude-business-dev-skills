@@ -27,11 +27,11 @@ PART OF: BRD - [Project Name]
 
 # Personas / Actors
 
-<!-- Different actors that operate the system. Each persona should describe their role, goals, and access level. -->
+<!-- Different actors that operate the system. Each persona should describe their role, goals, and access level. Every persona listed here becomes a column in the Users & Use Cases Matrix (chunk 07) and owns a detailed use-case chunk (06a, 06b, ...). -->
 
 | Persona | Role | Key Goals | Access Level |
 |---------|------|-----------|-------------|
 | [Persona 1] | [Role description] | [What they need to accomplish] | [Admin / Operator / Viewer / etc.] |
 | [Persona 2] | [Role description] | [What they need to accomplish] | [Access level] |
 
-<!-- MASTER: brd-master.md | PREV: 03-definitions-and-domain-concepts.md | NEXT: 05-fr-overview.md -->
+<!-- MASTER: brd-master.md | PREV: 03-definitions-and-domain-concepts.md | NEXT: 05-user-journeys-overview.md -->

@@ -35,10 +35,10 @@ Is there a source document attached, pasted, or referenced by path?
 
 Signs:
 
-- Has section headings matching `Executive Summary`, `Business Objectives`, `Glossary`, `Functional Requirements`, `Non-Functional Requirements`, etc., in the order the template defines.
-- FR blocks use the `What / Why / How / Constraints / Future Enhancements / UI/UX` structure.
+- Has section headings matching `Executive Summary`, `Business Objectives`, `Glossary`, `User Journeys & Use Cases`, `Users & Use Cases Matrix`, `Non-Functional Requirements`, etc., in the order the template defines.
+- Use-case blocks use the `Actor & Goal / Why / Preconditions / Main Flow / Alternate & Exception Flows / Business Rules & Constraints / Acceptance Criteria / Future Enhancements / UI/UX` structure. (An older revision of this template used FR blocks with `What / Why / How / Constraints / Future Enhancements / UI/UX` — treat that as "stale, template evolved" and migrate to use cases.)
 - Has a Changes Log.
-- Has tables for Glossary, Dependencies, Integrations, NFRs.
+- Has tables for Glossary, Dependencies, Integrations, NFRs, and the Users & Use Cases Matrix.
 
 If 4+ of these match, treat as "already follows this template" and the work is reformat / regenerate / migrate.
 
@@ -59,7 +59,7 @@ Signs:
 
 - Has BRD-like content (requirements, scope, NFRs) but section names or order don't match the template.
 - Common offenders: vendor templates, BAs from a previous role, IEEE 830 / 29148 styles, Volere templates.
-- Often missing one of: Changes Log, Glossary, Personas, Reporting / Analytics, UI/UX Expectations, Technical Implementation Expectations.
+- Often missing one of: Changes Log, Glossary, Personas, a per-user use-case structure, a users-permissions matrix, Reporting / Analytics, UI/UX Expectations.
 
 Re-architect into this template's section order. Carry every fact across; flag every gap that this template demands but the source doesn't have.
 
@@ -90,7 +90,7 @@ Do NOT treat as a transform target. Treat as raw context for GENERATE — extrac
 Transform is not "copy the source verbatim into the new shape". It is:
 
 1. **Read the source completely.**
-2. **Classify each piece of content into a target template section.** A SoW paragraph might split across Executive Summary, Background, and FR-03.How.
+2. **Classify each piece of content into a target template section.** A SoW paragraph might split across Executive Summary, Background, and UC-03's Main Flow.
 3. **Paraphrase to fit voice and audience.** SoWs are vendor-facing; BRDs are team-facing. Same facts, different voice. (See `sow-transformation.md` § "Handling voice and audience shift".)
 4. **Preserve verbatim what must be verbatim.** Numbers, dates, percentages, SLAs, named integrations, named systems.
 5. **Flag every gap.** The source will not cover every BRD section. Missing items become `**[NEEDS CLARIFICATION: <specific question>]**` markers.

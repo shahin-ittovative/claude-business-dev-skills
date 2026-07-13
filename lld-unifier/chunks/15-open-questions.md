@@ -19,11 +19,13 @@ PART OF: LLD - [Project Name]
 
 ## 18.1 Drift Markers (hybrid mode only)
 
-| Location | Marker | Summary | Severity | Resolution |
-|----------|--------|---------|----------|------------|
-| `[chunk:section]` | `⚠ drift` | [SDD says X, code does Y] | [High / Medium / Low] | [Pending / Reconciled in code / Reconciled in SDD] |
-| `[chunk:section]` | `🆕 code-only` | [Feature in code not in SDD] | [Severity] | [Backfill SDD / Remove from code] |
-| `[chunk:section]` | `⛔ sdd-only` | [In SDD, not yet built] | [Severity] | [Implement / Defer] |
+<!-- Every row carries the author's recommended reconciliation AND the reason behind it - never a bare "Pending". -->
+
+| Location | Marker | Summary | Severity | Recommended resolution | Why | Status |
+|----------|--------|---------|----------|------------------------|-----|--------|
+| `[chunk:section]` | `⚠ drift` | [SDD says X, code does Y] | [High / Medium / Low] | [Reconcile in code / Reconcile in SDD] | [Reason, e.g., "code behaviour is live and consumers depend on it - update the SDD"] | [Pending / Done] |
+| `[chunk:section]` | `🆕 code-only` | [Feature in code not in SDD] | [Severity] | [Backfill SDD / Remove from code] | [Reason] | [Pending / Done] |
+| `[chunk:section]` | `⛔ sdd-only` | [In SDD, not yet built] | [Severity] | [Implement / Defer] | [Reason] | [Pending / Done] |
 
 > **Severity guide:**
 > - **High:** affects security, data integrity, or contract surface.
@@ -44,9 +46,11 @@ PART OF: LLD - [Project Name]
 
 ## 18.4 Decisions Pending
 
-| ID | Decision needed | Stakeholder | Blocking? | Target date |
-|----|-----------------|-------------|-----------|-------------|
-| OQ-01 | [Decision] | [Role / Person] | [Yes / No] | [YYYY-MM-DD] |
+<!-- Every open decision carries the author's recommended option AND the reason behind it - the stakeholder decides with a default in hand, never from a blank slate. -->
+
+| ID | Decision needed | Recommended option | Why | Stakeholder | Blocking? | Target date |
+|----|-----------------|--------------------|-----|-------------|-----------|-------------|
+| OQ-01 | [Decision] | [The suggested choice] | [Reason it wins: evidence + tradeoff accepted] | [Role / Person] | [Yes / No] | [YYYY-MM-DD] |
 
 ## 18.5 Inference Confidence Summary
 

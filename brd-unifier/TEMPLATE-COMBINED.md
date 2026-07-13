@@ -5,6 +5,8 @@
 **Date:** [YYYY-MM-DD]
 **Status:** [Draft | In Review | Approved]
 
+<!-- LANGUAGE RULE: The whole BRD is business language only - it states the WHAT. No technology names, protocols, frameworks, or implementation terminology anywhere in the body. The HOW (tech stack, architecture, technical targets) is owned by the SDD (sdd-unifier). Technical mandates found in source material are parked verbatim in Appendix > Technical Inputs for the SDD. -->
+
 ---
 
 ## Changes Log
@@ -68,6 +70,8 @@ Core capabilities:
 
 # Glossary
 
+<!-- Business and domain terms only, defined in plain language. No technical terminology - technical vocabulary belongs in the SDD glossary. -->
+
 | Term | Definition |
 |------|-----------|
 | [Term 1] | [Definition] |
@@ -86,7 +90,7 @@ Core capabilities:
 
 # Facts
 
-<!-- Known truths that drive design decisions. -->
+<!-- Known truths that drive decisions. -->
 
 1. [Fact 1]
 2. [Fact 2]
@@ -95,7 +99,7 @@ Core capabilities:
 
 # Challenges
 
-<!-- Known risks, data quality issues, integration pain points. Include examples where helpful. -->
+<!-- Known risks, data quality issues, business pain points. Include examples where helpful. -->
 
 1. [Challenge 1]
 2. [Challenge 2]
@@ -120,33 +124,27 @@ Core capabilities:
 
 # Definitions & Important Details
 
-<!-- Deep-dive into domain concepts critical for the team to understand before reading the FRs. -->
+<!-- Deep-dive into domain concepts critical for the team to understand before reading the use cases. Business language only: lifecycles, rules, relationships as the business understands them. -->
 
 ## [Domain Concept 1]
 
 ### Overview
 
-[Explain the concept, its role in the system, and how it flows through the platform.]
+[Explain the concept, its role in the business, and how it flows through the product.]
 
-### [Sub-concept / Data Lifecycle]
+### [Sub-concept / Lifecycle]
 
-[Detailed explanation with states, transitions, examples.]
+[Detailed explanation with states, transitions, examples - in business terms.]
 
-<!-- Include diagrams/figures where applicable -->
+<!-- Include inline Mermaid figures where applicable (business-language labels only) -->
 
-### [Sub-concept / Anatomy / Structure]
+### [Sub-concept / Structure]
 
-[Break down the internal structure - e.g., how a record is composed, what entities it maps to.]
+[Break down how the concept is composed from the business point of view - what it contains, what it relates to, who owns it.]
 
-## [Domain Concept 2 - e.g., Suppliers, Integrations]
+## [Domain Concept 2]
 
-### [Mapping / Configuration Details]
-
-<!-- Optional: Per-variant mapping tables for integration-heavy projects. -->
-
-| Source Field | Internal Field | Notes |
-|-------------|---------------|-------|
-| [External] | [Internal] | [Transform logic] |
+[Repeat the pattern per concept.]
 
 ---
 
@@ -170,7 +168,7 @@ Core capabilities:
 
 # Personas / Actors
 
-<!-- Different actors that operate the system. Each persona should describe their role, goals, and access level. -->
+<!-- Different actors that operate the system. Every persona listed here becomes a column in the Users & Use Cases Matrix and owns a group of detailed use cases. -->
 
 | Persona | Role | Key Goals | Access Level |
 |---------|------|-----------|-------------|
@@ -179,126 +177,167 @@ Core capabilities:
 
 ---
 
-# Functional Requirements
+# User Journeys & Use Cases
 
-<!-- Start with a narrative that describes the primary user workflow end-to-end. -->
+<!-- One short narrative per persona: what they come to the system to accomplish and the path they take. -->
 
-[1-2 paragraphs describing the primary happy-path workflow from the user's perspective.]
+## User Journeys
+
+### [Persona 1] Journey
+
+[1 paragraph: what this user wants to accomplish end-to-end, the path they take, and the outcome they leave with.]
+
+### [Persona 2] Journey
+
+[1 paragraph.]
 
 ## Summarized Workflow
 
-<!-- Optional: A simplified visual or step-by-step summary of the key workflow(s). Include diagrams. -->
+<!-- Optional: A simplified step-by-step summary of the key journey(s). Diagrams are inline Mermaid (business-language labels), each with a mandatory 1-2 sentence prose summary. Append a `> Miro: <url>` link only if the user asked for a board. -->
 
-[Workflow description with numbered steps or a diagram reference.]
+[Workflow description with numbered steps and/or an inline Mermaid flowchart + prose summary.]
 
-## High Level
+## Use Case Summary
 
-<!-- Tier groupings + summary table of all FRs. -->
+<!-- Every use case, one row each. UC numbering is sequential across the whole BRD. Group rows per persona. -->
 
-| Tier | FRs | Description |
-|------|-----|-------------|
-| T1 - [Tier Name] | FR-01 - FR-04 | [Tier description] |
-| T2 - [Tier Name] | FR-05 - FR-08 | [Tier description] |
+| UC ID | Use Case | Primary Actor | Description |
+|-------|----------|---------------|-------------|
+| **[Persona 1]** | | | |
+| UC-01 | [Short Title] | [Persona 1] | [1-3 sentence summary of the goal and outcome] |
+| UC-02 | [Short Title] | [Persona 1] | [Summary] |
+| **[Persona 2]** | | | |
+| UC-03 | [Short Title] | [Persona 2] | [Summary] |
 
-<!-- Detailed high-level summary table -->
+## Detailed Use Cases
 
-| FR ID | Requirement | Description |
-|-------|------------|-------------|
-| **[Category Header]** | | |
-| FR-01 | [Short Title] | [1-3 sentence summary] |
-| FR-02 | [Short Title] | [1-3 sentence summary] |
+All detailed use cases follow this structure:
 
-## Detailed
-
-All detailed FRs follow this structure:
-
-- **What**: Definition.
-- **Why**: Purpose / business justification.
-- **How**: Steps / sub-tasks / acceptance criteria.
-- **Constraints**: Conditions / pre-conditions / limitations.
-- **Acceptance Criteria**: Testable conditions that confirm the FR is complete.
-- **Future Enhancements**: Low-complexity items developers can optionally include.
+- **Actor & Goal**: Who performs it, what they want, what triggers it.
+- **Why**: The business value of this use case.
+- **Preconditions**: What must be true before the use case can start.
+- **Main Flow**: Numbered detailed steps - actor action, system response, alternating.
+- **Alternate & Exception Flows**: What happens when the path branches or fails, in business terms.
+- **Business Rules & Constraints**: Rules, limits, and conditions that govern the use case.
+- **Acceptance Criteria**: Testable conditions that confirm the use case is complete.
+- **Future Enhancements**: Low-complexity follow-ups that could ship next.
 - **UI/UX**: Wireframes or references to approved Figma designs.
+
+<!-- Group the detailed use cases per persona, in the same order as the Use Case Summary. -->
+
+### Use Cases - [Persona 1]
 
 ---
 
-### FR-01: [Feature Title]
+#### UC-01: [Use Case Title]
 
-#### What
+| | |
+|---|---|
+| **Primary Actor** | [Persona] |
+| **Supporting Actors** | [Other personas or external business parties involved, or "None"] |
+| **Goal** | [What the actor wants to achieve, one sentence] |
+| **Trigger** | [The business event that starts this use case] |
 
-[Clear, concise definition of what this feature does.]
+##### Why
 
-#### Why
+[Business value - why does the business need this use case? Tie it to a Business Objective or a stated pain point.]
 
-[Business justification - why does the business need this?]
+##### Preconditions
 
-#### How
+- [Condition that must hold before step 1, or "None."]
 
-[Step-by-step description of the feature behavior. Use sub-sections (FR-01.1, FR-01.2) for complex features with multiple sub-flows.]
+##### Main Flow
 
-##### FR-01.1: [Sub-flow Title]
+<!-- Detailed steps. Alternate actor action and system response. Each step is observable by the actor - if a step cannot be seen or verified by a user, it is design detail and belongs in the SDD. -->
 
-[Detailed steps for this sub-flow.]
+1. [Actor] [does something].
+2. The system [responds in business terms].
+3. [Actor] [next action].
+4. The system [next response].
+5. [Continue until the goal is reached and the actor sees the outcome.]
 
-##### FR-01.2: [Sub-flow Title]
+##### Alternate & Exception Flows
 
-[Detailed steps for this sub-flow.]
+- **A1 - [Branching condition]:** At step [N], [what happens instead, in business terms].
+- **E1 - [Failure condition]:** The system informs [Actor] that [what they see and what they can do next].
 
-#### Constraints
+##### Business Rules & Constraints
 
-[List of constraints, pre-conditions, or limitations. Use "Not applicable." if none.]
+- [Rule 1. Use "Not applicable." if none.]
 
-#### Acceptance Criteria
+##### Acceptance Criteria
 
 - [ ] [Testable condition 1 - e.g., "Given X, when Y, then Z"]
 - [ ] [Testable condition 2]
-- [ ] [Testable condition 3]
 
-#### Future Enhancements
+##### Future Enhancements
 
-- [Enhancement 1]
-- [Enhancement 2]
+- [Enhancement 1, or "- None identified at this time."]
 
-#### UI/UX
+##### UI/UX
 
-<!-- Reference wireframes, mockups, or Figma links. Use placeholder images during early drafts. -->
+<!-- Reference wireframes, mockups, or Figma links. Use placeholder references during early drafts. -->
 
 [Figure reference or Figma link]
 
 ---
 
-<!-- Repeat the FR block (What/Why/How/Constraints/Acceptance Criteria/Future Enhancements/UI/UX) for each functional requirement -->
+<!-- Repeat the UC block for each use case; repeat the persona grouping for each persona. -->
+
+---
+
+# Users & Use Cases Matrix
+
+<!-- One consolidated view of who is allowed to do what. Every persona is a column; every use case is a row. Derived from the Actor fields of the detailed use cases - it must never contradict them. Conditional access gets a numbered footnote, never a bare "Yes". -->
+
+> **How to read.** Rows are the use cases (functions) of the system; columns are the users (personas). **Yes** = this user is allowed to perform the use case. **-** = not allowed. A numbered footnote marks conditional access.
+
+| Use Case | [Persona 1] | [Persona 2] | [Persona 3] |
+|----------|:-----------:|:-----------:|:-----------:|
+| UC-01 [Short Title] | Yes | Yes | - |
+| UC-02 [Short Title] | Yes | - | - |
+| UC-03 [Short Title] | Yes | Yes | Yes¹ |
+
+¹ [Condition, e.g., "Own region only."]
 
 ---
 
 # Integrations
 
-<!-- Systems that will be integrated with & the ways of integration. -->
+<!-- Business systems and partners this product exchanges information with, and why. State the what; the SDD defines the how. -->
 
-| System | Direction | Protocol | Data Format | Auth | SLA |
-|--------|-----------|----------|-------------|------|-----|
-| [External System 1] | [Inbound / Outbound / Bidirectional] | [REST / SFTP / Kafka / Webhook] | [JSON / CSV / XML] | [API Key / OAuth2 / mTLS] | [e.g., 99.9% uptime, <200ms] |
-| [External System 2] | [Direction] | [Protocol] | [Format] | [Auth] | [SLA] |
+| Business System / Partner | Business Purpose | Information Exchanged | Direction | Criticality | Provider / Owner |
+|---------------------------|------------------|-----------------------|-----------|-------------|------------------|
+| [e.g., Payment Gateway] | [e.g., Collect customer payments and process refunds] | [e.g., Payment requests, confirmations, refund status] | [We send / We receive / Both ways] | [Critical / Important / Nice-to-have] | [Provider name or owning team] |
+| [External System 2] | [Purpose] | [Information] | [Direction] | [Criticality] | [Owner] |
+
+> Technical integration details (protocols, authentication, data formats, availability targets) are defined in the SDD, not here.
 
 ---
 
 # Reporting / Analytics
 
-<!-- Expected reports, table views, charts, dashboards, and data exports. -->
+<!-- Expected reports, table views, charts, dashboards, and data exports - in business terms. -->
 
-| Report / View | Data Source | Refresh | Audience | Format |
-|--------------|------------|---------|----------|--------|
-| [Report 1] | [Table / API / Aggregation] | [Real-time / Daily / On-demand] | [Admin / Manager / Tenant] | [Table / Chart / Export CSV] |
-| [Report 2] | [Data Source] | [Refresh] | [Audience] | [Format] |
+| Report / View | What It Shows | Audience | Frequency | Format |
+|---------------|---------------|----------|-----------|--------|
+| [Report 1] | [The business question it answers] | [Admin / Manager / Tenant] | [Real-time / Daily / On-demand] | [Table / Chart / Export CSV & Excel] |
+| [Report 2] | [What it shows] | [Audience] | [Frequency] | [Format] |
 
 ---
 
 # Non-Functional Requirements
 
-| NFR ID | Category | Requirement | Target |
-|--------|----------|------------|--------|
-| NFR-01 | [Performance / Security / Scalability / Availability / Usability] | [Requirement name] | [Concrete, measurable target] |
-| NFR-02 | [Category] | [Requirement name] | [Concrete, measurable target] |
+<!-- Business language only: state WHAT quality the business expects and how the business would recognise it. HOW it is achieved is owned by the SDD. Never invent measures; missing measure -> [NEEDS CLARIFICATION: ...]. -->
+
+| NFR ID | Quality | Business Expectation (the what) | Business Measure |
+|--------|---------|--------------------------------|------------------|
+| NFR-01 | Availability | [e.g., The service is available around the clock; customers are never blocked from paying] | [e.g., No more than X minutes of disruption per month] |
+| NFR-02 | Scalability | [e.g., Growth to X tenants / Y customers over Z years without degraded experience] | [e.g., Seasonal peaks of N times normal traffic handled without slowdown] |
+| NFR-03 | Performance | [e.g., Screens respond immediately; reports are ready within moments] | [e.g., Everyday actions complete within N seconds] |
+| NFR-04 | Security & Privacy | [e.g., Customer data visible only to authorised users] | [e.g., Access outside the Users & Use Cases Matrix is impossible] |
+
+> The technical realisation of each NFR is defined in the SDD, not here.
 
 ---
 
@@ -312,29 +351,15 @@ All detailed FRs follow this structure:
 
 # UI/UX Expectations
 
-<!-- Global UI/UX standards that apply across all pages. -->
+<!-- Global UI/UX standards that apply across all pages, from the user's point of view. -->
 
 - **Primary Color**: [Primary Color Hex].
-- **Data Tables**: [Sorting, pagination: default 20 rows/ page, export (csv & excel), filtering standards]
+- **Data Tables**: [Sorting, pagination: default 20 rows/page, export (csv & excel), filtering standards]
 - **Filtration**: [Standardized filter patterns]
-- **Error Messages**: All API error responses include a machine-readable `error_code` and a human-readable `message`. UI surfaces the human-readable message to users.
-- **Responsive Design**: Tenant portal must be usable on desktop, tablet and mobile screen sizes as a minimum.
+- **Error Messages**: Errors tell the user in plain language what went wrong and what to do next. No technical codes or internal details are shown to users.
+- **Responsive Design**: The product must be usable on desktop, tablet and mobile screen sizes as a minimum.
+- **Language & Locale**: [Supported languages, right-to-left support if applicable, date/number/currency formats per audience.]
 - [Other global UX rules]
-
----
-
-# Technical Implementation Expectations
-
-<!-- Global Implementation notes. -->
-
-* **Backend**: Java 21, Spring Boot 3.4+
-  * layered implementation: Controller, Service, Service Implementation, Repo, Entity.
-  * DTOs to utilize Java records.
-  * No business logic in controller.
-  * DRY, SOLID principles & appropriate design patterns (if needed)
-* **Database**: PostgreSQL LTS.
-* **ID Strategy**: UUID v7 (`uuid_generate_v7()`) - time-ordered for efficient indexing
-* **TimeZone:** UTC for all datetime related.
 
 ---
 
@@ -344,11 +369,19 @@ All detailed FRs follow this structure:
 |-----------------|-----------------|
 | [Description] | [Filename or link] |
 
+## Technical Inputs for the SDD
+
+<!-- Optional. If the source material states technical mandates - named technologies, protocols, architecture rules, concrete performance targets - park them here VERBATIM so nothing is lost. The sdd-unifier reads this section as input. Remove if the source had none. -->
+
+| Source Statement (verbatim) | Source Location | Relevant To |
+|-----------------------------|-----------------|-------------|
+| [e.g., "Backend must be Java 21 / Spring Boot"] | [SoW §4.2] | [SDD Ecosystem Overview] |
+
 ---
 
 # Wishlist
 
-*Next features (after future enhancements section of each FR)*
+*Next features (after future enhancements section of each use case)*
 
 1. [Feature 1]
    - [Sub-detail]
@@ -357,59 +390,11 @@ All detailed FRs follow this structure:
 
 ---
 
-# Specs
-
-<!--
-Constitution-grade summary, authored AFTER the body so it can synthesise from completed Executive Summary, FRs, NFRs, and Technical Implementation Expectations.
-Sub-sections 1, 2, and 3 are intended as direct inputs for speckit `/constitution`. Sub-section 2 (Tech Stack) and sub-section 4 (Project Type) also steer downstream sdd-unifier / lld-unifier behaviour.
-Tone: short, precise, clear, simple. No narrative. No marketing. Each sub-section is one screen at most.
-This section MUST come after the FR/NFR body, never before.
--->
-
-## 1. Mission
-
-<!-- 2-3 sentences. Distilled from the Executive Summary above. Core idea only. No metrics, no features list. -->
-
-[2-3 sentences. Core idea only.]
-
-## 2. Tech Stack
-
-<!-- Consolidated from "Technical Implementation Expectations" above and any tech-pinning rows in NFRs. One bullet per tier. If a tier is N/A, write "Not applicable." — do not delete the row. -->
-
-- **Backend:** [Language + framework + version, e.g., Java 21, Spring Boot 3.5+]
-- **Frontend:** [Language + framework + version, e.g., Angular 17+ standalone, Tailwind, PrimeNG] | Not applicable.
-- **Mobile:** [Platform + framework, e.g., Flutter 3.x] | Not applicable.
-- **Data:** [Primary store + version, e.g., PostgreSQL 17+]
-- **Messaging:** [If event-driven, e.g., Kafka / SQS+SNS] | Not applicable.
-
-## 3. Roadmap
-
-<!-- Phases derived from the FR list above. Each phase: short label + one-line scope + which FR IDs it covers. 3-6 phases is typical. -->
-
-| Phase | Scope (one line) | FR IDs |
-|-------|------------------|--------|
-| P1 - [Foundation label] | [What this phase delivers] | FR-01, FR-02 |
-| P2 - [Phase 2 label] | [What this phase delivers] | FR-03, FR-04 |
-| P3 - [Phase 3 label] | [What this phase delivers] | FR-05, FR-06 |
-
-## 4. Project Type
-
-<!-- Pick exactly one. The choice gates downstream skills (sdd-unifier, lld-unifier from-code vs from-sdd). -->
-
-- [ ] **Greenfield** - new product, no pre-existing codebase to honour.
-- [ ] **Brownfield** - extending or re-architecting an existing codebase. Cite the codebase reference: [path or repo URL].
-
-**Selected:** [Greenfield | Brownfield]
-
-**Justification (one line):** [Why this classification.]
-
----
-
 # Open Items & Clarifications
 
 <!--
-Output of the post-generation cleared-context reviewer pass. Captures gaps, missing scenarios, corner cases that the body did not flag inline. Each item has options where applicable.
-This section is not a list of `[NEEDS CLARIFICATION: ...]` markers — those stay inline. This section is the reviewer's external findings.
+Output of the post-generation cleared-context reviewer pass. Captures gaps, missing scenarios, corner cases that the body did not flag inline. Every item carries a Recommended Answer - a concrete, ready-to-apply resolution. After this section is written, the skill walks the user through each item for acceptance; accepted answers are reflected into the body and logged in the Resolution Log.
+This section is not a list of `[NEEDS CLARIFICATION: ...]` markers - those stay inline. This section is the reviewer's external findings.
 -->
 
 ## How to read each item
@@ -417,24 +402,26 @@ This section is not a list of `[NEEDS CLARIFICATION: ...]` markers — those sta
 | Field | Meaning |
 |-------|---------|
 | **ID** | OI-NN. Stable across revisions. |
-| **Where** | Section, FR ID, or "global". |
-| **Type** | Gap / Missing scenario / Corner case / Ambiguity / Risk / Inconsistency. |
+| **Where** | Section, UC ID, or "global". |
+| **Type** | Gap / Missing scenario / Corner case / Ambiguity / Risk / Inconsistency / Duplication (content restated instead of referenced - within the BRD or from source docs). |
 | **Concern** | One paragraph. What was missed and why it matters. |
 | **Options** | Concrete choices, each with a one-line tradeoff. At least 2 where a choice exists. |
-| **Recommendation** | Reviewer's suggested option with rationale, or "no recommendation - stakeholder call." |
-| **Status** | Open / Resolved (link to BRD update) / Deferred (with rationale). |
+| **Recommended Answer** | The reviewer's concrete proposed resolution, written as ready-to-apply BRD content. This is what gets injected into the body when accepted. |
+| **Why** | REQUIRED. One or two lines: the reason the recommended option wins over the alternatives — the evidence behind it (source section, stated business expectation, domain practice, risk avoided) and the tradeoff being accepted. Never empty, never "best option". |
+| **Status** | Open / Accepted - applied / Adjusted - applied / Deferred (with rationale) / Rejected. |
 
 ## Open Items
 
 ### OI-01: [Short title]
 
-- **Where:** [Section name or FR ID]
-- **Type:** [Gap | Missing scenario | Corner case | Ambiguity | Risk | Inconsistency]
+- **Where:** [Section name or UC ID]
+- **Type:** [Gap | Missing scenario | Corner case | Ambiguity | Risk | Inconsistency | Duplication]
 - **Concern:** [One paragraph.]
 - **Options:**
   - **A.** [Option A] — [one-line tradeoff].
   - **B.** [Option B] — [one-line tradeoff].
-- **Recommendation:** [Reviewer's suggested option with rationale.]
+- **Recommended Answer:** [Option letter + the concrete resolution text, ready to paste into the BRD.]
+- **Why:** [The reason this option wins: evidence (source section, business expectation, domain practice) + the tradeoff accepted.]
 - **Status:** Open
 
 <!-- Repeat OI block for each open item. -->
@@ -443,7 +430,7 @@ This section is not a list of `[NEEDS CLARIFICATION: ...]` markers — those sta
 
 | ID | Resolution Date | Resolved In | Outcome |
 |----|----------------|-------------|---------|
-| [OI-XX] | [YYYY-MM-DD] | [Section / FR ID] | [Option chosen — short note] |
+| [OI-XX] | [YYYY-MM-DD] | [Section / UC ID] | [Accepted recommendation | Adjusted: short note | Deferred | Rejected] |
 
 ## Reviewer Notes
 

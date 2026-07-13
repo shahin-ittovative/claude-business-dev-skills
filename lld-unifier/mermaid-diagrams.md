@@ -1,6 +1,6 @@
 # Mermaid Diagrams (with optional Miro link slots)
 
-Per the user's decision (clarification #3), LLDs use **inline Mermaid** as the default for sequence, state, ERD, and class diagrams. **Miro links are optional** for whiteboard-richer visuals. This is a deliberate departure from the BRD/SDD convention (Miro-only) — LLDs are developer-facing and live next to code.
+LLDs use **inline Mermaid** as the default for sequence, state, ERD, and class diagrams. **Miro links are optional** for whiteboard-richer visuals. This matches the convention across all unifier skills (BRD, SDD, LLD): inline Mermaid is authoritative; Miro boards are produced only on explicit request.
 
 ---
 

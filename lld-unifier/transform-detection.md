@@ -32,12 +32,12 @@ After confirming output shape (chunks / combined), ask:
 | Both code path and SDD path | hybrid |
 | Neither | from-sdd (the most common greenfield case); ask the user to provide an SDD |
 
-**Project Type override from BRD Specs.** If the SDD chain links back to a BRD with `12-specs.md` (or the user supplies the BRD path), read Specs § 4 (Project Type) and apply this override BEFORE the smart defaults above:
+**Project Type override.** Resolve the Project Type — recorded in the SDD §1 at SDD intake (legacy chains: SDD `15-specs.md` § 4 / combined `# 19. Specs`, or BRD `12-specs.md`) — and apply this override BEFORE the smart defaults above (it later lands in this LLD's own `17-specs.md` § 4):
 
-| Specs.Project Type | Effect on direction default |
+| Project Type | Effect on direction default |
 |---|---|
-| **Greenfield** | If neither code path nor SDD path provided, default suggestion stays from-sdd. If only code path provided, the user is doing reverse-engineering of a greenfield-built service — keep from-code default but flag in handoff: "Greenfield project type per BRD Specs, but code is being reverse-engineered. Confirm intent." |
-| **Brownfield** | If only an SDD is provided, surface a friction prompt: "Brownfield project type per BRD Specs § 4 — was the existing codebase intentionally excluded? Direction `from-sdd` will document the *target* design without reflecting the *current* code. Consider `hybrid` (provide both) or `from-code` (point at current code) for accurate documentation." Default suggestion becomes `hybrid` if both inputs available, else keep `from-sdd` and capture the friction in the handoff. |
+| **Greenfield** | If neither code path nor SDD path provided, default suggestion stays from-sdd. If only code path provided, the user is doing reverse-engineering of a greenfield-built service — keep from-code default but flag in handoff: "Greenfield project type per the recorded Project Type, but code is being reverse-engineered. Confirm intent." |
+| **Brownfield** | If only an SDD is provided, surface a friction prompt: "Brownfield project type per the recorded Project Type — was the existing codebase intentionally excluded? Direction `from-sdd` will document the *target* design without reflecting the *current* code. Consider `hybrid` (provide both) or `from-code` (point at current code) for accurate documentation." Default suggestion becomes `hybrid` if both inputs available, else keep `from-sdd` and capture the friction in the handoff. |
 
 This override never silently picks the direction — it adjusts the suggested default and surfaces friction. The user still confirms.
 
@@ -97,7 +97,7 @@ If 4+ of these match, it's an sdd-unifier chunked output.
 **Combined file signs:**
 
 - Filename starts with `SDD-` (e.g., `SDD-WalletManagement-v1.0.md`).
-- Has the SDD section structure: §1 Executive Summary, §6 Ecosystem Overview, §13 Services with §13.2.X per-service blocks, §14 Performance & Capacity, §16 Operations Runbook.
+- Has the SDD section structure: §1 Executive Summary, §6 Ecosystem Overview, §13 Services Decomposition, §14 Centralized Event Hub, §15.X per-service blocks, §17 Performance & Capacity, §19 Operations Runbook (legacy SDDs: §13.1/§13.2.X services, §14 performance).
 
 If 5+ match, it's an SDD.
 

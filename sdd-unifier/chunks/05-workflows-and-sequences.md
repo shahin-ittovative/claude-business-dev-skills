@@ -7,25 +7,12 @@ DEPENDS_ON: 04
 PART OF: SDD - [Project Name]
 -->
 
-# 8.4 Workflow Diagrams
+## 8.4 Workflow Diagrams
 
 <!-- This chunk continues the System Design section from chunk 04 (Architecture Style & Diagrams). -->
-<!-- Add one workflow per critical end-to-end business flow. Use the same pattern: text description + optional Mermaid. -->
+<!-- Add one workflow per critical end-to-end business flow. Inline Mermaid is the default diagram medium; each diagram gets a 1-2 sentence prose Summary so it reads without rendering. Append `> Miro: <url>` only if a richer whiteboard version exists on a real board. -->
 
 ### 8.4.1 Workflow: [Flow Name]
-
-> Description (tool-agnostic).
-
-```text
-Steps:
-  1. [Step]
-  2. [Step]
-  3. [Step]
-  4. [Step]
-  5. [Step]
-```
-
-**Mermaid alternative:**
 
 ```mermaid
 flowchart TD
@@ -33,6 +20,8 @@ flowchart TD
   B --> C[Step 3]
   C --> D[Step 4]
 ```
+
+**Summary:** [1-2 sentences describing the flow in prose.]
 
 ### 8.4.2 Workflow: [Flow Name]
 
@@ -44,20 +33,6 @@ flowchart TD
 
 ### 8.5.1 Sequence: [Flow Name]
 
-> Description (tool-agnostic).
-
-```text
-Participants (left to right):
-  [Participant 1], [Participant 2], [Participant 3]
-
-Messages:
-  1. [Source] -> [Target]: [message]
-  2. [Source] -> [Target]: [message]
-  3. [Source] -> [Target]: [message]
-```
-
-**Mermaid alternative:**
-
 ```mermaid
 sequenceDiagram
   participant P1 as Participant 1
@@ -65,6 +40,8 @@ sequenceDiagram
   P1->>P2: [message]
   P2-->>P1: [response]
 ```
+
+**Summary:** [1-2 sentences describing the interaction in prose.]
 
 ### 8.5.2 Sequence: [Flow Name]
 

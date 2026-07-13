@@ -1,5 +1,5 @@
 <!--
-CHUNK: 12
+CHUNK: 13
 TITLE: Environments
 PROJECT: [Project Name]
 VERSION: [X.X]
@@ -7,7 +7,7 @@ DEPENDS_ON: 07
 PART OF: SDD - [Project Name]
 -->
 
-# 15. Environments
+# 18. Environments
 
 | Environment | Purpose | Data | Access | Promotion Source |
 |-------------|---------|------|--------|------------------|
@@ -25,4 +25,4 @@ PART OF: SDD - [Project Name]
 - **Access controls:** [Auth + elevation rules]
 - **Secrets strategy:** [e.g., Dev uses local .env / SIT+UAT use Sealed Secrets / Prod uses Vault with auto-rotation]
 
-<!-- MASTER: sdd-master.md | PREV: 11-performance-and-capacity.md | NEXT: 13-operations-runbook.md -->
+<!-- MASTER: sdd-master.md | PREV: 12-performance-and-capacity.md | NEXT: 14-operations-runbook.md -->

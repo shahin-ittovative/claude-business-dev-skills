@@ -13,7 +13,7 @@ PART OF: SDD - [Project Name]
 
 ### 8.1.1 What
 
-<!-- Name the style. -->
+<!-- Name the style. Platform default (per the ecosystem doctrine in §6): microservices with an event-driven async backbone (EDA), DDD bounded contexts, hexagonal (ports & adapters) inside each service. Deviations need an ADR. -->
 
 [Architecture style statement.]
 
@@ -38,23 +38,7 @@ PART OF: SDD - [Project Name]
 
 **Figure 2: System Context Diagram**
 
-> Description (tool-agnostic; copy and paste into Miro, Lucidchart, draw.io).
-
-```text
-Center node (system under design):
-  "[System Name]"
-
-External actors / systems (around the center):
-  - [External entity 1]
-  - [External entity 2]
-  - [External entity 3]
-
-Connections (label each line with protocol + purpose):
-  [Source] --[protocol]--> [Target]   ([purpose])
-  [Source] --[protocol]--> [Target]   ([purpose])
-```
-
-**Mermaid alternative:**
+<!-- Inline Mermaid is the default diagram medium. Label each edge with protocol + purpose. Append `> Miro: <url>` only if a richer whiteboard version exists on a real board. -->
 
 ```mermaid
 flowchart TB
@@ -64,44 +48,13 @@ flowchart TB
   SYS -->|protocol| EXT3[(External Entity 3)]
 ```
 
+**Summary:** [1-2 sentences: who talks to the system and over what.]
+
 ## 8.3 High-Level Architecture Diagram
 
 **Figure 3: High-Level Architecture**
 
-> Description (tool-agnostic).
-
-```text
-Layers, top to bottom:
-
-L1 Edge / Entry:
-  - [Components]
-
-L2 Frontend:
-  - [Components]
-
-L3 Backend Services:
-  - [Service 1]
-  - [Service 2]
-  - [Service N]
-
-L4 Data Plane:
-  - [Datastores]
-
-L5 Async Backbone:
-  - [Broker / topics]
-
-L6 External:
-  - [External systems]
-
-L7 Observability:
-  - [Logs / metrics / traces stack]
-
-Connections:
-  - [Connection 1]
-  - [Connection 2]
-```
-
-**Mermaid alternative:**
+<!-- Inline Mermaid is the default diagram medium. Show the layers: edge, frontend, services, data plane, async backbone, external, observability. -->
 
 ```mermaid
 flowchart TB
@@ -124,5 +77,7 @@ flowchart TB
   S1 & S2 --> DB
   S1 & S2 --> CACHE
 ```
+
+**Summary:** [1-2 sentences: the layer composition and the load-bearing connections.]
 
 <!-- MASTER: sdd-master.md | PREV: 03-users-and-use-cases.md | NEXT: 05-workflows-and-sequences.md -->

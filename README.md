@@ -26,7 +26,7 @@ All four skills follow the same house style, so output is interchangeable and to
 - **Chunked by default.** Long deliverables are split into multiple context-scoped `.md` files, one per logical grouping, not one monolithic file. Merge into a single document only on request.
 - **Stable two-digit numbering.** Files use the `NN-kebab-name.md` pattern so ordering is deterministic and cross-references stay valid.
 - **Self-describing front-matter.** Each chunk opens with an HTML comment block (chunk number, title, tier or stage, parent document) so an agent can reassemble the set.
-- **Diagrams via Miro MCP.** Architecture and flow diagrams are created directly on a Miro board and referenced by link. Diagrams are not inlined as Mermaid, ASCII, or images unless inline rendering is explicitly requested. Where a Mermaid fallback is provided (notably in the SDD template), it is offered as an alternative, not the default.
+- **Diagrams as inline Mermaid by default.** Architecture and flow diagrams are authored as inline Mermaid blocks, each with a short prose summary so the document reads without a renderer. Miro boards are created via the Miro MCP only when explicitly requested, and the board link is additive (`> Miro: <url>` under the Mermaid block), never a replacement.
 - **Tech defaults.** Java 21, Spring Boot 3.4+, PostgreSQL, Kafka, Angular 17+ with Tailwind and PrimeNG, UUID v7 primary keys, BIGINT minor units for money, UTC for all timestamps.
 
 ---
@@ -65,7 +65,7 @@ All four skills follow the same house style, so output is interchangeable and to
 - `TEMPLATE.md`: the standard BRD-HLD template.
 - `references/chunking.md`: the canonical 11 to 16 chunk map with stable two-digit numbering.
 - `references/sow-transformation.md`: SoW-to-BRD field mapping.
-- `references/miro-diagrams.md`: Miro tool access, board lifecycle, which sections warrant diagrams, DSL authoring, and graceful degradation when Miro is unavailable.
+- `mermaid-diagrams.md`: which sections warrant diagrams, the Mermaid dialect per diagram type, business-language-only rules, and the Miro-on-demand flow.
 - `references/fr-quality.md`: pass and fail tests for each of the five FR sub-sections (What, Why, How, Constraints, UI/UX), plus guidance on handling cross-cutting concerns once rather than repeating them per FR.
 
 **Modes:**
@@ -88,7 +88,7 @@ All four skills follow the same house style, so output is interchangeable and to
 
 **Sections covered:** document metadata, executive summary, scope, assumptions, risks, glossary, ecosystem overview, system users with use case diagrams, high-level architecture (context, workflow, and sequence diagrams), architecture style and principles, an architectural decisions table, cross-cutting concerns (database modeling, multi-tenancy, deployment, observability, configuration management), an integrations table, detailed per-service specs (DB modeling, ERDs, API lists, EDA event models, error handling, observability, compliance, deployment, future enhancements), performance and capacity planning, environments, operations runbook, appendix, and wishlist.
 
-**Diagrams:** dual format. A tool-agnostic step-by-step text description suitable for Miro, Lucidchart, or draw.io, plus a Mermaid code block as an alternative.
+**Diagrams:** inline Mermaid as the default, each with a mandatory prose summary; Miro boards only on explicit request. The SDD also carries three platform-level catalogues: a Centralized Event Hub (event catalog + payload contracts — the contract registry every per-service spec must match), a Centralized User Roles & Authorities catalogue, and an End-to-End System Design chunk authored last.
 
 **Feeds into:** the LLD. Each service identified and bounded in the SDD becomes the subject of its own LLD.
 

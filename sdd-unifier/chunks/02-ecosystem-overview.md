@@ -12,10 +12,12 @@ PART OF: SDD - [Project Name]
 <!--
 Summary of the platform-wide technology stack and shared infrastructure that all services in this SDD must conform to.
 This section is the single source of truth for the implementation constitution and planned technology choices.
+SELECTION FLOW: this table is never filled silently. Per SKILL.md § Ecosystem selection, the skill first presents the proposed ecosystem (BRD Technical Inputs verbatim > CLAUDE.md defaults > BRD-informed recommendations) for a one-shot accept-all; if not accepted, it walks the user through the items in grouped batches, highlighting the recommended option per item with the BRD evidence that drives it. Record the outcome per row in the Notes column (e.g., "BRD-mandated", "default accepted", "user override - see ADR-NN").
 -->
 
 | Layer | Technology / Service | Version / Tier | Notes |
 |-------|----------------------|----------------|-------|
+| Architecture Doctrine | [Microservices + EDA (event-driven backbone) + DDD (bounded contexts) + Hexagonal (ports & adapters) per service - the platform default] | n/a | [Confirmed in ecosystem selection; deviations need an ADR] |
 | Compute / Infra | [On-prem Kubernetes / EKS / AKS / GKE] | [vX.Y] | [Cluster topology, node groups, multi-AZ, etc.] |
 | Container Runtime | [containerd / Docker] | [vX.Y] | [Notes] |
 | Service Mesh / Ingress | [Istio / Linkerd / NGINX Ingress / Cloud LB] | [vX.Y] | [mTLS, traffic policies] |
@@ -36,9 +38,14 @@ This section is the single source of truth for the implementation constitution a
 
 **Ecosystem-level rules:**
 
-- [Rule 1, e.g., timezone]
-- [Rule 2, e.g., ID strategy]
-- [Rule 3, e.g., service-to-service auth]
-- [Rule 4, e.g., secrets handling]
+<!-- The first three rules are platform defaults (EDA / DDD / Hexagonal). Keep them unless the user explicitly overrode them during ecosystem selection - an override needs an ADR in §10. -->
+
+- **Event-driven by default (EDA):** every cross-service state change travels as an asynchronous event through the Centralized Event Hub (§14); synchronous REST is reserved for true request-response, capped at one hop. Outbox pattern mandatory - no dual-writes.
+- **DDD bounded contexts:** one service owns one bounded context, one database, one team of decisions. No shared schemas across services; the §13 decomposition follows domain boundaries, not technical tiers.
+- **Hexagonal architecture (ports & adapters) per service:** domain core isolated from transport and infrastructure; inbound/outbound adapters (REST, messaging, persistence, providers) plug into ports. Provider integrations sit behind anti-corruption adapters.
+- [Rule, e.g., timezone - UTC for all datetimes]
+- [Rule, e.g., ID strategy - UUIDv7 primary keys]
+- [Rule, e.g., service-to-service auth]
+- [Rule, e.g., secrets handling]
 
 <!-- MASTER: sdd-master.md | PREV: 01-executive-summary-scope-risks.md | NEXT: 03-users-and-use-cases.md -->

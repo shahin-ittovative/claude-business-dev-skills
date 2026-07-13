@@ -21,13 +21,15 @@ brd-[project-slug]/
 ├── 02-glossary-assumptions-facts.md
 ├── 03-definitions-and-domain-concepts.md
 ├── 04-scope-and-personas.md
-├── 05-fr-overview.md
-├── 06a-fr-detailed.md            # split into 06a, 06b, ... by tier or theme when FRs are many
-├── 07-integrations.md
-├── 08-reporting-and-analytics.md
-├── 09-nfrs.md
-├── 10-summary-uiux-tech.md
-└── 11-appendix-and-wishlist.md
+├── 05-user-journeys-overview.md
+├── 06a-use-cases-[persona-slug].md   # one chunk per persona: 06a, 06b, ...
+├── 07-users-use-cases-matrix.md
+├── 08-integrations.md
+├── 09-reporting-and-analytics.md
+├── 10-nfrs.md
+├── 11-summary-and-uiux.md
+├── 12-appendix-and-wishlist.md
+└── 13-open-items-and-clarifications.md
 ```
 
 `brd-master.md` (also in `chunks/`) is the master index pointing at the chunks; regenerate it for each output project.
@@ -69,7 +71,7 @@ See `chunking.md` for chunking strategy, deviation rules, and merge handling.
 4. Executive Summary
 5. Background and Context / Problem Statement
 6. Business Objectives
-7. Glossary
+7. Glossary (business terms only)
 8. Assumptions / Constraints
 9. Facts
 10. Challenges
@@ -77,15 +79,16 @@ See `chunking.md` for chunking strategy, deviation rules, and merge handling.
 12. Definitions & Important Details
 13. Project Scope (incl. In Scope / Out of Scope)
 14. Personas / Actors
-15. Functional Requirements (narrative + Summarized Workflow + High Level + Detailed FRs)
-16. Integrations
-17. Reporting / Analytics
-18. Non-Functional Requirements
-19. Summary
-20. UI/UX Expectations
-21. Technical Implementation Expectations
-22. Appendix
+15. User Journeys & Use Cases (journeys per persona + Summarized Workflow + Use Case Summary + Detailed Use Cases per persona)
+16. Users & Use Cases Matrix
+17. Integrations (business-level)
+18. Reporting / Analytics
+19. Non-Functional Requirements (business language)
+20. Summary
+21. UI/UX Expectations
+22. Appendix (incl. Technical Inputs for the SDD, if any)
 23. Wishlist
+24. Open Items & Clarifications (post-generation reviewer output; every item carries a Recommended Answer with its Why)
 
 **No chunk comment blocks** in combined mode — the file is a single artefact.
 
@@ -106,7 +109,7 @@ The two modes are reversible.
 
 When the user says "merge", "consolidate", "single file", "full doc" after a chunks-mode generation:
 
-1. Read all `brd-[slug]/NN-*.md` files in numeric order (00, 01, 02, 03, 03a, 03b, 04, 05, 06a, 06b, …, 11).
+1. Read all `brd-[slug]/NN-*.md` files in numeric order (00, 01, 02, 03, 03a, 03b, 04, 05, 06a, 06b, …, 07, 08, 09, 10, 11, 12, 13).
 2. Strip each chunk's `<!-- CHUNK: ... -->` HTML comment block.
 3. Concatenate with a single blank line between chunks.
 4. Regenerate the Table of Contents in the cover section against the merged heading outline.
@@ -143,7 +146,7 @@ Mode (CHUNKS / COMBINED) describes the **output shape**. Intent (GENERATE / TRAN
 
 |  | GENERATE | TRANSFORM |
 |---|---|---|
-| **CHUNKS** | Author a fresh BRD as 11+ chunked files. | Re-shape source material into 11+ chunked files. |
+| **CHUNKS** | Author a fresh BRD as 14+ chunked files. | Re-shape source material into 14+ chunked files. |
 | **COMBINED** | Author a fresh BRD as a single file. | Re-shape source material into a single file. |
 
 See `transform-detection.md` for how to decide intent.

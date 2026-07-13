@@ -332,47 +332,79 @@ erDiagram
 
 ---
 
-# 20. Open Items & Clarifications
+# 20. Specs
 
 <!--
-Output of the post-generation cleared-context reviewer pass. Captures implementation-level gaps, missing edge cases, pattern misapplications, error path concerns. Each item carries options.
-This section complements (does not replace) §18, which is the author-generated index of inline `> Confirm:` and `> TODO:` flags. §20 captures the external reviewer's adversarial findings.
+Constitution-grade summary, owned by lld-unifier and authored AFTER the LLD body. Synthesised from the source SDD: Mission from SDD §1 (2-3 sentences, core idea only), Tech Stack from SDD §6 verbatim with version pins (must equal §6.3 Runtime Stack above - a mismatch is drift to flag), Roadmap from SDD §13 + BRD UC ownership (3-6 delivery phases), Project Type from intake with the LLD direction taken. Direct input for speckit /constitution. Tone: short, precise, declarative. See chunks/17-specs.md for the full skeleton.
 -->
 
-## 20.1 How to read each item
+## 20.1 Mission
+
+[2-3 sentences. Core idea only.]
+
+## 20.2 Tech Stack
+
+- **Backend:** [Language + framework + version] 
+- **Frontend:** [Framework + version] | Not applicable.
+- **Mobile:** [Platform + framework] | Not applicable.
+- **Data:** [Primary store + version]
+- **Messaging:** [Broker] | Not applicable.
+
+## 20.3 Roadmap
+
+| Phase | Scope (one line) | Services / UC IDs |
+|-------|------------------|-------------------|
+| P1 - [Label] | [Scope] | [services; UC IDs] |
+
+## 20.4 Project Type
+
+**Selected:** [Greenfield | Brownfield] — **Justification:** [one line]. **LLD direction taken:** [from-sdd | from-code | hybrid].
+
+---
+
+# 21. Open Items & Clarifications
+
+<!--
+Output of the post-generation cleared-context reviewer pass. Captures implementation-level gaps, missing edge cases, pattern misapplications, error path concerns, contract drift vs the SDD's Centralized Event Hub (§14) and User Roles catalogue (§16), and Specs-body mismatches. Each item carries options.
+This section complements (does not replace) §18, which is the author-generated index of inline `> Confirm:` and `> TODO:` flags. §21 captures the external reviewer's adversarial findings.
+-->
+
+## 21.1 How to read each item
 
 | Field | Meaning |
 |-------|---------|
 | **ID** | OI-NN. Stable across revisions. |
 | **Where** | Service name + sub-section, or "global". |
-| **Type** | Implementation gap / Missing edge case / Pattern misapplication / Error path / Concurrency hazard / Transaction boundary / Idempotency gap / Multi-tenancy leak / Test gap / Drift. |
+| **Type** | Implementation gap / Missing edge case / Pattern misapplication / Error path / Concurrency hazard / Transaction boundary / Idempotency gap / Multi-tenancy leak / Test gap / Drift / Contract drift (vs SDD §14/§16) / Specs-body mismatch / Duplication (SDD content restated instead of referenced). |
 | **Concern** | One paragraph. What was missed and why it matters. |
 | **Options** | At least 2 concrete choices, each with a one-line tradeoff. |
-| **Recommendation** | Reviewer's suggested option with rationale. |
+| **Recommendation** | REQUIRED. The reviewer's suggested option — always pick one, even for close calls. |
+| **Why** | REQUIRED. One or two lines: the reason the recommended option wins — the evidence (CLAUDE.md rule, SDD contract, code fact, risk avoided) and the tradeoff accepted. Never empty. |
 | **Status** | Open / Resolved / Deferred. |
 
-## 20.2 Open Items
+## 21.2 Open Items
 
 ### OI-01: [Short title]
 
 - **Where:** [Service / sub-section, or "global"]
-- **Type:** [Implementation gap | Missing edge case | Pattern misapplication | Error path | Concurrency hazard | Transaction boundary | Idempotency gap | Multi-tenancy leak | Test gap | Drift]
+- **Type:** [Implementation gap | Missing edge case | Pattern misapplication | Error path | Concurrency hazard | Transaction boundary | Idempotency gap | Multi-tenancy leak | Test gap | Drift | Duplication]
 - **Concern:** [One paragraph.]
 - **Options:**
   - **A.** [Option A] — [one-line tradeoff].
   - **B.** [Option B] — [one-line tradeoff].
-- **Recommendation:** [Reviewer's suggested option with rationale.]
+- **Recommendation:** [Suggested option letter + the concrete change.]
+- **Why:** [The reason this option wins: evidence + tradeoff accepted.]
 - **Status:** Open
 
 <!-- Repeat OI block for each open item. -->
 
-## 20.3 Resolution Log
+## 21.3 Resolution Log
 
 | ID | Resolution Date | Resolved In | Outcome |
 |----|----------------|-------------|---------|
 | [OI-XX] | [YYYY-MM-DD] | [Service / sub-section] | [Option chosen — short note] |
 
-## 20.4 Reviewer Notes
+## 21.4 Reviewer Notes
 
 - [Note 1]
 - [Note 2]
